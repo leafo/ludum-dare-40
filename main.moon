@@ -52,7 +52,7 @@ class Box
     )
 
     @body\setLinearDamping 5
-    @body\setAngularDamping 0.5
+    @body\setAngularDamping 5
     @shape = love.physics.newRectangleShape(
       (assert @w, "missing width")
       (assert @h, "missing height")
@@ -67,6 +67,10 @@ class Box
 class Player extends Ball
   radius: 4
 
+  new: (...) =>
+    super ...
+    @jointed = {}
+
   draw: => super "fill"
 
   update: (dt) =>
@@ -76,9 +80,29 @@ class Player extends Ball
     -- not used
     -- @ball.body\applyLinearImpulse unpack move*dt*10
 
+    closest, d = @closest_object!
+    @current_closest = closest and d < @radius * 2 and closest
+
     if CONTROLLER\downed "one"
-      @current_closest, d = @closest_object!
+      if @current_closest
+        -- create a joint
+        sx, sy = @body\getPosition!
+        joint = love.physics.newWeldJoint @body, @current_closest.body, sx, sy, false
+        print "Created joint"
+        @jointed[@current_closest] = joint
+      else
+        @release_joints!
+
       print "closest", d
+
+  release_joints: =>
+    print "Destroying joints"
+    return unless next @jointed
+
+    for _, joint in pairs @jointed
+      joint\destroy!
+
+    @jointed = {}
 
   closest_object: =>
     sx, sy = @body\getPosition!
@@ -87,6 +111,7 @@ class Player extends Ball
 
     for object in *@world.objects
       continue if object == @
+      continue if @jointed[object]
 
       t = object.shape\type!
 
