@@ -399,6 +399,8 @@ class Game
       world: @
       :x, :y
     }
+
+    @viewport\center_on_pt @player\center!
     table.insert @objects, @player
 
   add_box: (x, y) =>
