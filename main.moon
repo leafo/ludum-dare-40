@@ -2,6 +2,8 @@ require "lovekit.all"
 {graphics: g} = love
 export DEBUG = false
 
+import CenterAnchor, VList, Label, RevealLabel, Border from require "lovekit.ui"
+
 load_font = (img, chars)->
   font_image = imgfy img
   g.newImageFont font_image.tex, chars
@@ -40,7 +42,6 @@ load_map = (mod, world) ->
 
 class DialogScreen
   new: (@opts={}) =>
-    import CenterAnchor, VList, Label, RevealLabel, Border from require "lovekit.ui"
 
     @seq = Sequence ->
       wait_until -> not CONTROLLER\is_down "one"
@@ -50,8 +51,11 @@ class DialogScreen
     @content = Border(
       VList {
         align: "center"
-        Label "how are you doing?"
-        RevealLabel "press something, yeah"
+        Label @opts.object.name or "unknown"
+        RevealLabel "you can take my boxes", nil, nil, {
+          fixed_size: true
+          max_width: 120
+        }
       }
       {
         background: { 30, 30, 30, 200 }
@@ -220,12 +224,14 @@ class PBox extends Polygon
 class Npc extends Ball
   radius: 4
   linear_damping: 20
+  name: "npc"
 
   is_npc: true
 
   new: (@opts={}) =>
     @origin_x = @opts.x
     @origin_y = @opts.y
+    @name = @opts.name
     super @opts
 
   center: =>
@@ -235,17 +241,25 @@ class Npc extends Ball
     super!
     x, y = @body\getPosition!
 
-    if name = @opts.name
-      g.print name, x, y
-
     g.setPointSize 1
     g.points @origin_x, @origin_y
+
+    if @label
+      @label\draw!
 
   update: (dt) =>
     x, y = @body\getPosition!
     dir = Vec2d(@origin_x, @origin_y) - Vec2d(x,y)
     if dir\len! > 1
       @body\applyForce unpack dir*3
+
+    if @world.current_target == @
+      @label or= CenterAnchor x, y - @radius*2, RevealLabel @name
+    else
+      @label = nil
+
+    if @label
+      @label\update dt
 
     -- push them back to origin
 
@@ -432,7 +446,7 @@ class Game
 
     for object in *@objects
       if object.draw
-        if @player.current_closest == object
+        if @current_target == object
           COLOR\push 255, 100, 100
         else
           COLOR\push 255, 255,255
@@ -457,6 +471,7 @@ class Game
     px, py = @player.body\getPosition!
     @viewport\center_on_pt px, py, @map, dt*2
 
+
     @viewport\update dt
     @physics\update dt
     @entities\update dt
@@ -468,10 +483,11 @@ class Game
       if object.update
         object\update dt
 
+    @current_target = @player and @player.current_closest
 
 love.load = ->
   fonts = {
-    default: load_font "images/font.png",
+    default: load_font "images/font2.png",
       [[ abcdefghijklmnopqrstuvwxyz-1234567890!.,:;'"?$&%]]
   }
 
