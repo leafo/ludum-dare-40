@@ -41,18 +41,23 @@ load_map = (mod, world) ->
 
 
 class DialogScreen
-  new: (@opts={}) =>
+  default_dialog:  {
+    "I have nothing to say to you"
+  }
 
+  new: (@opts={}) =>
     @seq = Sequence ->
       wait_until -> not CONTROLLER\is_down "one"
       wait_until -> CONTROLLER\is_down "one"
       @close!
 
+    dialog = require("dialog")[@opts.object.name] or @default_dialog
+
     @content = Border(
       VList {
         align: "center"
         Label @opts.object.name or "unknown"
-        RevealLabel "you can take my boxes", nil, nil, {
+        RevealLabel dialog[1]\lower!, nil, nil, {
           fixed_size: true
           max_width: 120
         }
