@@ -103,7 +103,7 @@ class Cursor
     @object = assert opts.object, "Missing object"
     @radius = opts.radius
     @parts = opts.parts
-    @is_connected = opts.is_connected
+    @is_active = opts.is_active
 
   draw: =>
     cx, cy = @object\center!
@@ -140,8 +140,8 @@ class Cursor
   update: (dt) =>
     @time += dt * 2
     @rot += dt * 5
-    if @is_connected
-      @is_connected!
+    if @is_active
+      @is_active!
     else
       true
 
@@ -280,7 +280,7 @@ class Player extends Ball
 
   new: (...) =>
     super ...
-    @jointed = {}
+    @holding = {}
     @cursors = DrawList!
 
   draw: =>
@@ -306,7 +306,7 @@ class Player extends Ball
       if @current_closest
         @interact_with @current_closest
       else
-        @release_joints!
+        @drop_everything!
 
   interact_with: (object) =>
     if object.is_npc
@@ -332,19 +332,18 @@ class Player extends Ball
     @cursors\add Cursor {
       :object
       radius: 7
-      is_connected: -> @jointed[object]
+      is_active: -> @holding[object]
     }
 
-    @jointed[@current_closest] = joint
+    @holding[@current_closest] = joint
 
-  release_joints: =>
-    print "Destroying joints"
-    return unless next @jointed
+  drop_everything: =>
+    return unless next @holding
 
-    for _, joint in pairs @jointed
+    for _, joint in pairs @holding
       joint\destroy!
 
-    @jointed = {}
+    @holding = {}
 
   closest_object: =>
     sx, sy = @body\getPosition!
@@ -354,7 +353,7 @@ class Player extends Ball
     for object in *@world.objects
       continue if object == @
       continue if object.body\getType! != "dynamic"
-      continue if @jointed[object]
+      continue if @holding[object]
 
       t = object.shape\type!
 
@@ -410,7 +409,6 @@ class Game
     }
 
   add_npc: (x,y, name) =>
-    print "Adding NPC"
     table.insert @objects, Npc {
       :name
       :x, :y
