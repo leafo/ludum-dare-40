@@ -42,6 +42,11 @@ class DialogScreen
   new: (@opts={}) =>
     import CenterAnchor, VList, Label, RevealLabel, Border from require "lovekit.ui"
 
+    @seq = Sequence ->
+      wait_until -> not CONTROLLER\is_down "one"
+      wait_until -> CONTROLLER\is_down "one"
+      @close!
+
     @content = Border(
       VList {
         align: "center"
@@ -55,16 +60,67 @@ class DialogScreen
       }
     )
 
-    x, y = @opts.object\center!
+    viewport = @opts.world.viewport
+    x = viewport.w / 2
+    y = viewport.h / 2
 
     @entities = DrawList!
     @entities\add CenterAnchor x,y, @content
 
+  close: =>
+    if @opts.world.current_dialog = @
+      @opts.world.current_dialog = nil
+
   draw: =>
+    return unless @layouted
     @entities\draw!
 
   update: (dt) =>
+    @layouted = true
     @entities\update dt
+    @seq\update dt
+
+class Cursor
+  parts: 3
+  radius: 4
+  rot: 0
+  time: 0
+
+  new: (opts={}) =>
+    @object = assert opts.object, "Missing object"
+    @radius = opts.radius
+    @parts = opts.parts
+
+  draw: =>
+    cx, cy = @object\center!
+
+    g.translate cx, cy
+
+    split = math.pi * 2 / @parts
+    rot = @rot
+
+    alpha = math.min(0.5, @time) * 2 * 255
+
+    COLOR\push 255, 255, 255, alpha
+    g.setPointSize 2
+
+    for i=0,@parts
+      x, y = unpack Vec2d.from_radians(rot) * (@radius + math.sin(@time + rot) * @radius / 3)
+
+      COLOR\push 0,0,0
+      g.points x + 1, y + 1
+      COLOR\pop!
+
+      g.points x, y
+
+      rot += split
+
+    COLOR\pop!
+
+  update: (dt) =>
+    @time += dt * 2
+    @rot += dt * 5
+    true
 
 class Ball
   linear_damping: 5
@@ -92,6 +148,7 @@ class Ball
     @shape = love.physics.newCircleShape (assert @radius, "missing radius")
 
     @fixture = love.physics.newFixture @body, @shape, 1
+    print "categories:", @fixture\getCategory!
     @fixture\setRestitution 0.9
 
   draw: (mode="line")=>
@@ -168,6 +225,7 @@ class Npc extends Ball
     if name = @opts.name
       g.print name, x, y
 
+    g.setPointSize 1
     g.points @origin_x, @origin_y
 
   update: (dt) =>
@@ -187,9 +245,13 @@ class Player extends Ball
 
   draw: => super "fill"
 
+  is_active: =>
+    not @world.current_dialog
+
   update: (dt) =>
-    move = CONTROLLER\movement_vector!
-    @body\applyForce unpack move*6
+    if @is_active!
+      move = CONTROLLER\movement_vector!
+      @body\applyForce unpack move*6
 
     -- not used
     -- @ball.body\applyLinearImpulse unpack move*dt*10
@@ -197,10 +259,7 @@ class Player extends Ball
     closest, d = @closest_object!
     @current_closest = closest and d < @radius * 2 and closest
 
-    if CONTROLLER\downed "one"
-      if @world.current_dialog
-        @world.current_dialog = nil
-
+    if @is_active! and CONTROLLER\downed "one"
       if @current_closest
         @interact_with @current_closest
       else
@@ -280,6 +339,14 @@ class Game
     love.physics.setMeter 64
     @physics = love.physics.newWorld 0, 0, true
 
+    @entities = DrawList!
+    @entities\add Cursor {
+      parts: 4
+      object: {
+        center: -> 10, 10
+      }
+    }
+
     @objects = {
       PBox {
         world: @
@@ -320,7 +387,6 @@ class Game
     }
     table.insert @objects, @player
 
-
   add_npc: (x,y, name) =>
     print "Adding NPC"
     table.insert @objects, Npc {
@@ -347,7 +413,6 @@ class Game
     g.setLineStyle "rough"
 
     @viewport\apply!
-    -- g.print "babys first box2d", 10, 10
 
     for object in *@objects
       if object.draw
@@ -360,7 +425,11 @@ class Game
 
         COLOR\pop!
 
+    @entities\draw!
+
     if @current_dialog
+      -- undo translate
+      g.translate @viewport.x, @viewport.y
       @current_dialog\draw!
 
     @viewport\pop!
@@ -371,6 +440,7 @@ class Game
 
     @viewport\update dt
     @physics\update dt
+    @entities\update dt
 
     if @current_dialog
       @current_dialog\update dt
