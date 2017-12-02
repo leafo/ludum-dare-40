@@ -1,13 +1,18 @@
-export love = {
-  graphics: {}
+
+
+import Dialog from require "dialog"
+
+d = Dialog {
+  spec: {
+    default: =>
+      print "before...", @
+      say "What's going on there friend?"
+      ask "What burger do you like?"
+      print "after"
+  }
+
 }
 
-import cubic_bez from require "lovekit.support"
-
-
-for t=0,1,0.1
-  print t, cubic_bez 1, 4, 0.5, 1, t
-
-
-
+require("moon").p d.thread!
+require("moon").p d.thread!
 
