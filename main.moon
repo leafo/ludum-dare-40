@@ -81,7 +81,7 @@ class DialogScreen
     @seq\update dt
 
 class Cursor
-  parts: 3
+  parts: 4
   radius: 4
   rot: 0
   time: 0
@@ -90,10 +90,12 @@ class Cursor
     @object = assert opts.object, "Missing object"
     @radius = opts.radius
     @parts = opts.parts
+    @is_connected = opts.is_connected
 
   draw: =>
     cx, cy = @object\center!
 
+    g.push!
     g.translate cx, cy
 
     split = math.pi * 2 / @parts
@@ -109,7 +111,7 @@ class Cursor
       radius = radius * cubic_bez 1, 3, 0.5, 1, @time
 
     for i=0,@parts
-      x, y = unpack Vec2d.from_radians(rot) * (radius + math.sin(@time + rot) * radius / 3)
+      x, y = unpack Vec2d.from_radians(rot) * (radius + math.sin(5*@time + rot) * radius / 5)
 
       COLOR\push 0,0,0
       g.points x + 1, y + 1
@@ -120,11 +122,15 @@ class Cursor
       rot += split
 
     COLOR\pop!
+    g.pop!
 
   update: (dt) =>
     @time += dt * 2
     @rot += dt * 5
-    true
+    if @is_connected
+      @is_connected!
+    else
+      true
 
 class Ball
   linear_damping: 5
@@ -185,8 +191,12 @@ class Polygon
     @fixture = love.physics.newFixture @body, @shape, 1
     @fixture\setRestitution 0.9
 
+  center: =>
+    @body\getPosition!
+
   draw: (mode="line") =>
     g.polygon mode, @body\getWorldPoints @shape\getPoints!
+    g.points @center!
 
   make_shape: =>
     assert @opts.points, "missing points"
@@ -245,8 +255,10 @@ class Player extends Ball
   new: (...) =>
     super ...
     @jointed = {}
+    @cursors = DrawList!
 
-  draw: => super "fill"
+  draw: =>
+    super "fill"
 
   is_active: =>
     not @world.current_dialog
@@ -258,6 +270,8 @@ class Player extends Ball
 
     -- not used
     -- @ball.body\applyLinearImpulse unpack move*dt*10
+
+    @cursors\update dt
 
     closest, d = @closest_object!
     @current_closest = closest and d < @radius * 2 and closest
@@ -289,7 +303,12 @@ class Player extends Ball
       true
     )
 
-    print "Created joint"
+    @cursors\add Cursor {
+      :object
+      radius: 7
+      is_connected: -> @jointed[object]
+    }
+
     @jointed[@current_closest] = joint
 
   release_joints: =>
@@ -343,12 +362,6 @@ class Game
     @physics = love.physics.newWorld 0, 0, true
 
     @entities = DrawList!
-    @entities\add Cursor {
-      parts: 4
-      object: {
-        center: -> 10, 10
-      }
-    }
 
     @objects = {
       PBox {
@@ -429,6 +442,9 @@ class Game
         COLOR\pop!
 
     @entities\draw!
+
+    if @player
+      @player.cursors\draw!
 
     if @current_dialog
       -- undo translate
