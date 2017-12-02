@@ -6,6 +6,22 @@ load_font = (img, chars)->
   font_image = imgfy img
   g.newImageFont font_image.tex, chars
 
+
+-- load the map into physics
+load_map = (mod, world) ->
+  map = require mod
+  for layer in *map.layers
+    continue unless layer.name == "collide"
+
+    for object in *layer.objects
+      continue unless object.shape == "polygon"
+      packed = {}
+      for {:x, :y} in *object.polygon
+        table.insert packed, x
+        table.insert packed, y
+
+      world\add_collide_polygon object.x, object.y, packed
+
 class Ball
   linear_damping: 5
   angular_damping: 5
@@ -41,37 +57,50 @@ class Ball
   detach: =>
     error "not yet"
 
-class Box
-  w: 10
-  h: 10
+class Polygon
+  type: "dynamic"
 
-  new: (opts={}) =>
-    {:world, :x, :y, :w, :h} = opts
+  new: (@opts={}) =>
+    {:world, :x, :y} = @opts
     {:physics} = world
 
     @world = world
-    @w = w
-    @h = h
+    @type = @opts.type
 
     @body = love.physics.newBody(
       physics
       assert x, "missing x"
       assert y, "missing y"
-      "dynamic"
+      @type
     )
 
     @body\setLinearDamping 5
     @body\setAngularDamping 5
-    @shape = love.physics.newRectangleShape(
-      (assert @w, "missing width")
-      (assert @h, "missing height")
-    )
+    @shape = @make_shape!
 
     @fixture = love.physics.newFixture @body, @shape, 1
     @fixture\setRestitution 0.9
 
   draw: (mode="line") =>
     g.polygon mode, @body\getWorldPoints @shape\getPoints!
+
+  make_shape: =>
+    assert @opts.points, "missing points"
+    require("moon").p @opts.points
+    love.physics.newPolygonShape unpack @opts.points
+
+class Box extends Polygon
+  w: 10
+  h: 10
+
+  make_shape: =>
+    {:w, :h} = @opts
+    @w = w
+    @h = h
+    love.physics.newRectangleShape(
+      (assert @w, "missing width")
+      (assert @h, "missing height")
+    )
 
 
 class Npc extends Ball
@@ -157,6 +186,7 @@ class Player extends Ball
 
     for object in *@world.objects
       continue if object == @
+      continue if object.body\getType! != "dynamic"
       continue if @jointed[object]
 
       t = object.shape\type!
@@ -231,8 +261,18 @@ class Game
       }
     }
 
+    load_map "maps.room", @
+
     -- thing = @objects[2]
     -- love.physics.newRopeJoint @ball.body, thing.body, cx, cy, 65, 58, 20
+
+  add_collide_polygon: (x, y, points) =>
+    table.insert @objects, Polygon {
+      type: "static"
+      world: @
+      :x, :y
+      :points
+    }
 
   draw: =>
     g.setLineStyle "rough"
