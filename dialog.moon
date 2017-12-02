@@ -61,17 +61,22 @@ class Dialog extends VList
     @thread = coroutine.wrap fn
 
     @seq = Sequence ->
-      wait_for_tap = ->
+      wait_for_tap = (button="one")->
         wait 0.1
-        wait_until -> not CONTROLLER\is_down "one"
-        wait_until -> CONTROLLER\is_down "one"
+        wait_until -> not CONTROLLER\is_down button
+        wait_until -> CONTROLLER\is_down button
 
+      -- wait for one of the buttons to be pressed after not being pressed
       wait_for_controller = (...) ->
         buttons = {...}
-        wait_until ->
-          for key in *buttons
-            if CONTROLLER\downed key
-              return key
+        fns = for button in *buttons
+          ->
+            wait_until -> not CONTROLLER\is_down button
+            wait_until -> CONTROLLER\is_down button
+            true
+
+        idx = wait_for_one unpack fns
+        buttons[idx]
 
       dispatch_action = (name, ...) ->
         switch name
@@ -87,14 +92,19 @@ class Dialog extends VList
 
             @items = { Label(object.name), label }
 
-            wait_until ->
-              if CONTROLLER\downed "one"
+            wait_for_one(
+              ->
+                wait_until -> not CONTROLLER\is_down "one"
+                wait_until -> CONTROLLER\is_down "one"
                 label.rate /= 100
 
-              revealed
+              ->
+                wait_until -> revealed
+            )
 
             unless opts and opts.wait_for_tap == false
               wait_for_tap!
+
           when "select"
             choices = ...
             selected = 1

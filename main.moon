@@ -62,6 +62,7 @@ class DialogScreen
 
       -- just so we don't trigger action immediately
       @entities = DrawList!
+
       wait_until ->
         not CONTROLLER\is_down("one") and not CONTROLLER\is_down("two")
 
