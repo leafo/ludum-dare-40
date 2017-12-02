@@ -2,6 +2,10 @@ require "lovekit.all"
 {graphics: g} = love
 export DEBUG = false
 
+load_font = (img, chars)->
+  font_image = imgfy img
+  g.newImageFont font_image.tex, chars
+
 class Ball
   new: (opts={}) =>
     {:world, :x, :y, :radius} = opts
@@ -62,6 +66,14 @@ class Box
 
   draw: (mode="line") =>
     g.polygon mode, @body\getWorldPoints @shape\getPoints!
+
+
+class Npc extends Ball
+  radius: 4
+  draw: =>
+    super!
+    x, y = @body\getPosition!
+    g.print "dude", x, y
 
 class Player extends Ball
   radius: 4
@@ -164,6 +176,13 @@ class Game
 
     @objects = {
       @player
+
+      Npc {
+        world: @
+        x: 15
+        y: cy
+      }
+
       Box {
         world: @
         x: 65
@@ -193,6 +212,8 @@ class Game
     -- love.physics.newRopeJoint @ball.body, thing.body, cx, cy, 65, 58, 20
 
   draw: =>
+    g.setLineStyle "rough"
+
     @viewport\apply!
     -- g.print "babys first box2d", 10, 10
 
@@ -218,6 +239,13 @@ class Game
 
 
 love.load = ->
+  fonts = {
+    default: load_font "images/font.png",
+      [[ abcdefghijklmnopqrstuvwxyz-1234567890!.,:;'"?$&%]]
+  }
+
+  g.setFont fonts.default
+
   export CONTROLLER = Controller GAME_CONFIG.keys, "auto"
   export DISPATCHER = Dispatcher -> Game!
   DISPATCHER\bind love
