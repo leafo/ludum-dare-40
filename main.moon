@@ -108,6 +108,7 @@ class Polygon
 class PBox extends Polygon
   w: 10
   h: 10
+  is_grabbable: true
 
   make_shape: =>
     {:w, :h} = @opts
@@ -122,6 +123,8 @@ class PBox extends Polygon
 class Npc extends Ball
   radius: 4
   linear_damping: 20
+
+  is_npc: true
 
   new: (@opts={}) =>
     @origin_x = @opts.x
@@ -166,27 +169,33 @@ class Player extends Ball
 
     if CONTROLLER\downed "one"
       if @current_closest
-        -- create a joint
-        ax, ay = @body\getPosition!
-        bx, by = @current_closest.body\getPosition!
-        dist = (Vec2d(ax, ay) - Vec2d(bx, by))\len!
-
-        -- joint = love.physics.newWeldJoint @body, @current_closest.body, sx, sy, false
-        joint = love.physics.newRopeJoint(
-          @body
-          @current_closest.body
-          ax, ay
-          bx, by
-          dist*1.01
-          true
-        )
-
-        print "Created joint"
-        @jointed[@current_closest] = joint
+        @interact_with @current_closest
       else
         @release_joints!
 
-      print "closest", d
+  interact_with: (object) =>
+    if object.is_npc
+      print "Talk with me!"
+    elseif object.is_grabbable
+      @grab object
+
+  grab: (object) =>
+    ax, ay = @body\getPosition!
+    bx, by = object.body\getPosition!
+    dist = (Vec2d(ax, ay) - Vec2d(bx, by))\len!
+
+    -- joint = love.physics.newWeldJoint @body, @current_closest.body, sx, sy, false
+    joint = love.physics.newRopeJoint(
+      @body
+      @current_closest.body
+      ax, ay
+      bx, by
+      dist*1.01
+      true
+    )
+
+    print "Created joint"
+    @jointed[@current_closest] = joint
 
   release_joints: =>
     print "Destroying joints"
