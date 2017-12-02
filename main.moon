@@ -37,7 +37,34 @@ load_map = (mod, world) ->
     map.height * map.tileheight
   )
 
--- class Viewport extends EffectViewport
+
+class DialogScreen
+  new: (@opts={}) =>
+    import CenterAnchor, VList, Label, RevealLabel, Border from require "lovekit.ui"
+
+    @content = Border(
+      VList {
+        align: "center"
+        Label "how are you doing?"
+        RevealLabel "press something, yeah"
+      }
+      {
+        background: { 30, 30, 30, 200 }
+        border: false
+        padding: 2
+      }
+    )
+
+    x, y = @opts.object\center!
+
+    @entities = DrawList!
+    @entities\add CenterAnchor x,y, @content
+
+  draw: =>
+    @entities\draw!
+
+  update: (dt) =>
+    @entities\update dt
 
 class Ball
   linear_damping: 5
@@ -131,6 +158,9 @@ class Npc extends Ball
     @origin_y = @opts.y
     super @opts
 
+  center: =>
+    @body\getPosition!
+
   draw: =>
     super!
     x, y = @body\getPosition!
@@ -168,6 +198,9 @@ class Player extends Ball
     @current_closest = closest and d < @radius * 2 and closest
 
     if CONTROLLER\downed "one"
+      if @world.current_dialog
+        @world.current_dialog = nil
+
       if @current_closest
         @interact_with @current_closest
       else
@@ -175,7 +208,7 @@ class Player extends Ball
 
   interact_with: (object) =>
     if object.is_npc
-      print "Talk with me!"
+      @world\start_dialog_with object
     elseif object.is_grabbable
       @grab object
 
@@ -304,6 +337,12 @@ class Game
       :points
     }
 
+  start_dialog_with: (object) =>
+    @current_dialog = DialogScreen {
+      world: @
+      object: object
+    }
+
   draw: =>
     g.setLineStyle "rough"
 
@@ -321,6 +360,9 @@ class Game
 
         COLOR\pop!
 
+    if @current_dialog
+      @current_dialog\draw!
+
     @viewport\pop!
 
   update: (dt) =>
@@ -329,6 +371,9 @@ class Game
 
     @viewport\update dt
     @physics\update dt
+
+    if @current_dialog
+      @current_dialog\update dt
 
     for object in *@objects
       if object.update
