@@ -51,6 +51,8 @@ class Dialog extends VList
       align: "center"
     }
 
+    object = opts.object
+
     spec = assert opts.spec, "missing spec"
     entry_point = opts.entry_point or "default"
 
@@ -83,7 +85,7 @@ class Dialog extends VList
               -> revealed = true
             }
 
-            @items = { label }
+            @items = { Label(object.name), label }
 
             wait_until ->
               if CONTROLLER\downed "one"
