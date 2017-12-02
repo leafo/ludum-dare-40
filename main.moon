@@ -20,7 +20,7 @@ load_map = (mod, world) ->
           switch object.type
             when "spawn"
               world\add_player object.x, object.y
-            when "dude"
+            when "npc"
               world\add_npc object.x, object.y, object.name
 
       when "collide"

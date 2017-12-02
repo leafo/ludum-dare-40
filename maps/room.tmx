@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="48" height="48" tilewidth="16" tileheight="16" nextobjectid="13">
+<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="48" height="48" tilewidth="16" tileheight="16" nextobjectid="14">
  <layer name="Tile Layer 1" width="48" height="48">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -54,8 +54,9 @@
  </layer>
  <objectgroup name="objects">
   <object id="5" name="player spawn" type="spawn" x="52" y="47"/>
-  <object id="11" name="dude" type="dude" x="89" y="72"/>
-  <object id="12" name="dude2" type="dude" x="54" y="251"/>
+  <object id="11" name="dude" type="npc" x="89" y="72"/>
+  <object id="12" name="dude2" type="npc" x="54" y="251"/>
+  <object id="13" name="stranger" type="npc" x="24" y="104"/>
  </objectgroup>
  <objectgroup name="collide">
   <object id="1" x="144" y="111">

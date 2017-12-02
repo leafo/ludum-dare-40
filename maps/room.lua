@@ -8,7 +8,7 @@ return {
   height = 48,
   tilewidth = 16,
   tileheight = 16,
-  nextobjectid = 13,
+  nextobjectid = 14,
   properties = {},
   tilesets = {},
   layers = {
@@ -102,7 +102,7 @@ return {
         {
           id = 11,
           name = "dude",
-          type = "dude",
+          type = "npc",
           shape = "rectangle",
           x = 89,
           y = 72,
@@ -115,10 +115,23 @@ return {
         {
           id = 12,
           name = "dude2",
-          type = "dude",
+          type = "npc",
           shape = "rectangle",
           x = 54,
           y = 251,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 13,
+          name = "stranger",
+          type = "npc",
+          shape = "rectangle",
+          x = 24,
+          y = 104,
           width = 0,
           height = 0,
           rotation = 0,
