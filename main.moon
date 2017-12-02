@@ -22,6 +22,8 @@ load_map = (mod, world) ->
               world\add_player object.x, object.y
             when "npc"
               world\add_npc object.x, object.y, object.name
+            when "box"
+              world\add_box object.x, object.y
 
       when "collide"
         for object in *layer.objects
@@ -46,17 +48,19 @@ class DialogScreen
   }
 
   new: (@opts={}) =>
+    @object = assert @opts.object, "missing object"
+
     @seq = Sequence ->
       wait_until -> not CONTROLLER\is_down "one"
       wait_until -> CONTROLLER\is_down "one"
       @close!
 
-    dialog = require("dialog")[@opts.object.name] or @default_dialog
+    dialog = require("dialog")[@object.name] or @default_dialog
 
     @content = Border(
       VList {
         align: "center"
-        Label @opts.object.name or "unknown"
+        Label @object.name or "unknown"
         RevealLabel dialog[1]\lower!, nil, nil, {
           fixed_size: true
           max_width: 120
@@ -173,8 +177,8 @@ class Ball
     x,y = @body\getPosition!
     g.circle mode, x, y, @shape\getRadius!
 
-  detach: =>
-    error "not yet"
+  center: =>
+    @body\getPosition!
 
 class Polygon
   type: "dynamic"
@@ -205,7 +209,6 @@ class Polygon
 
   draw: (mode="line") =>
     g.polygon mode, @body\getWorldPoints @shape\getPoints!
-    g.points @center!
 
   make_shape: =>
     assert @opts.points, "missing points"
@@ -215,6 +218,10 @@ class PBox extends Polygon
   w: 10
   h: 10
   is_grabbable: true
+
+  draw: (...) =>
+    super ...
+    g.points @center!
 
   make_shape: =>
     {:w, :h} = @opts
@@ -382,36 +389,8 @@ class Game
 
     @entities = DrawList!
 
-    @objects = {
-      PBox {
-        world: @
-        x: 65
-        y: 58
-      }
-
-      PBox {
-        world: @
-        x: 45
-        y: 45
-      }
-
-      PBox {
-        world: @
-        x: 57
-        y: 48
-      }
-
-      PBox {
-        world: @
-        x: 70
-        y: 42
-      }
-    }
-
+    @objects = {}
     @map = load_map "maps.room", @
-
-    -- thing = @objects[2]
-    -- love.physics.newRopeJoint @ball.body, thing.body, cx, cy, 65, 58, 20
 
   add_player: (x, y) =>
     assert not @player, "player already added"
@@ -421,6 +400,12 @@ class Game
       :x, :y
     }
     table.insert @objects, @player
+
+  add_box: (x, y) =>
+    table.insert @objects, PBox {
+      world: @
+      :x, :y
+    }
 
   add_npc: (x,y, name) =>
     print "Adding NPC"
@@ -473,9 +458,12 @@ class Game
     @viewport\pop!
 
   update: (dt) =>
-    px, py = @player.body\getPosition!
-    @viewport\center_on_pt px, py, @map, dt*2
+    px, py = if @current_dialog
+      @current_dialog.object\center!
+    else
+      @player\center!
 
+    @viewport\center_on_pt px, py, @map, dt*2
 
     @viewport\update dt
     @physics\update dt
