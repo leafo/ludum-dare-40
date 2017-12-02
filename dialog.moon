@@ -1,5 +1,6 @@
 
 import VList, HList, RevealLabel, Label from require "lovekit.ui"
+import Cursor from require "cursor"
 
 scope = setmetatable {
   say: (message) ->
@@ -13,6 +14,34 @@ scope = setmetatable {
       t[2]!
 
 }, __index: _G
+
+class ChoiceTick extends Box
+  x: 0
+  y: 0
+  w: 4
+  h: 4
+
+  new: (opts={}) =>
+    @is_selected = opts.is_selected
+
+  is_selected: => false
+
+  update: (dt) =>
+    if @is_selected!
+      @cursor or= Cursor {
+        object: @
+        radius: 4
+      }
+      @cursor\update dt
+    else
+      @cursor = nil
+
+  draw: =>
+    if @is_selected!
+      super!
+      @cursor\draw! if @cursor
+    else
+      super.outline @
 
 class Dialog extends VList
   @scope: scope
@@ -34,6 +63,13 @@ class Dialog extends VList
         wait 0.1
         wait_until -> not CONTROLLER\is_down "one"
         wait_until -> CONTROLLER\is_down "one"
+
+      wait_for_controller = (...) ->
+        buttons = {...}
+        wait_until ->
+          for key in *buttons
+            if CONTROLLER\downed key
+              return key
 
       dispatch_action = (name, ...) ->
         switch name
@@ -57,7 +93,6 @@ class Dialog extends VList
 
             unless opts and opts.wait_for_tap == false
               wait_for_tap!
-
           when "select"
             choices = ...
             selected = 1
@@ -66,26 +101,42 @@ class Dialog extends VList
               HList {
                 yalign: "center"
 
-                with Box 0, 0, 5,5
-                  .draw = =>
-                    if selected == idx
-                      Box.draw @
-                    else
-                      Box.outline @
-
+                ChoiceTick is_selected: => selected == idx
                 Label label\lower!
               }
 
             table.insert @items, HList [make_choice c, idx for idx, c in ipairs choices]
-            wait_for_tap!
+
+            while true
+              switch wait_for_controller "left", "right", "one", "two"
+                when "left"
+                  selected -= 1
+                  if selected <= 0
+                    selected += #choices
+
+                when "right"
+                  selected += 1
+                  if selected > #choices
+                    selected -= #choices
+
+                when "one", "two"
+                  break
+            
+            return selected
           else
             print "unhandled action", name
+
+        return
 
       action = @.thread opts.object, @ -- kick it off with object
 
       while action
-        dispatch_action unpack action
-        action = @.thread!
+        res = dispatch_action unpack action
+
+        action = if res
+          @.thread res
+        else
+          @.thread!
 
   is_done: =>
     @seq\is_dead!

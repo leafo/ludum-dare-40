@@ -9,8 +9,6 @@
           say "Well isn't that endearing..."
         }
       }
-
-    "You can take my boxes"
   }
   dude2: {
     default: => say "Bring me boxes please"
