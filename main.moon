@@ -99,13 +99,17 @@ class Cursor
     split = math.pi * 2 / @parts
     rot = @rot
 
-    alpha = math.min(0.5, @time) * 2 * 255
+    alpha = math.min(1/3, @time) * 3 * 255
 
     COLOR\push 255, 255, 255, alpha
     g.setPointSize 2
 
+    radius = @radius
+    if @time < 1
+      radius = radius * cubic_bez 1, 3, 0.5, 1, @time
+
     for i=0,@parts
-      x, y = unpack Vec2d.from_radians(rot) * (@radius + math.sin(@time + rot) * @radius / 3)
+      x, y = unpack Vec2d.from_radians(rot) * (radius + math.sin(@time + rot) * radius / 3)
 
       COLOR\push 0,0,0
       g.points x + 1, y + 1
@@ -148,7 +152,6 @@ class Ball
     @shape = love.physics.newCircleShape (assert @radius, "missing radius")
 
     @fixture = love.physics.newFixture @body, @shape, 1
-    print "categories:", @fixture\getCategory!
     @fixture\setRestitution 0.9
 
   draw: (mode="line")=>
