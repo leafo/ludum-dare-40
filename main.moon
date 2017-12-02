@@ -7,9 +7,15 @@ load_font = (img, chars)->
   g.newImageFont font_image.tex, chars
 
 class Ball
+  linear_damping: 5
+  angular_damping: 5
+
   new: (opts={}) =>
     {:world, :x, :y, :radius} = opts
     {:physics} = world
+
+    linear_damping = opts.linear_damping
+    angular_damping = opts.angular_damping
 
     @world = world
     @radius = radius
@@ -21,8 +27,8 @@ class Ball
       "dynamic"
     )
 
-    @body\setLinearDamping 5
-    @body\setAngularDamping 0.5
+    @body\setLinearDamping @linear_damping
+    @body\setAngularDamping @angular_damping
     @shape = love.physics.newCircleShape (assert @radius, "missing radius")
 
     @fixture = love.physics.newFixture @body, @shape, 1
@@ -70,10 +76,27 @@ class Box
 
 class Npc extends Ball
   radius: 4
+  linear_damping: 20
+
+  new: (opts={}) =>
+    @origin_x = opts.x
+    @origin_y = opts.y
+    super opts
+
   draw: =>
     super!
     x, y = @body\getPosition!
     g.print "dude", x, y
+
+    g.points @origin_x, @origin_y
+
+  update: (dt) =>
+    x, y = @body\getPosition!
+    dir = Vec2d(@origin_x, @origin_y) - Vec2d(x,y)
+    if dir\len! > 1
+      @body\applyForce unpack dir*3
+
+    -- push them back to origin 
 
 class Player extends Ball
   radius: 4
