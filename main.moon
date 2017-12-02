@@ -50,8 +50,10 @@ class Game
 
     @objects = {
       @ball
-      make_ball @physics, 15, 15
+      make_ball @physics, 65, 58
       make_rect @physics, 45, 45
+      make_rect @physics, 57, 48
+      make_rect @physics, 70, 42
     }
 
   draw: =>
