@@ -10,17 +10,34 @@ load_font = (img, chars)->
 -- load the map into physics
 load_map = (mod, world) ->
   map = require mod
+
   for layer in *map.layers
-    continue unless layer.name == "collide"
+    switch layer.name
+      when "objects"
+        for object in *layer.objects
+          switch object.type
+            when "spawn"
+              world\add_player object.x, object.y
+            when "dude"
+              world\add_npc object.x, object.y, object.name
 
-    for object in *layer.objects
-      continue unless object.shape == "polygon"
-      packed = {}
-      for {:x, :y} in *object.polygon
-        table.insert packed, x
-        table.insert packed, y
+      when "collide"
+        for object in *layer.objects
+          continue unless object.shape == "polygon"
+          packed = {}
+          for {:x, :y} in *object.polygon
+            table.insert packed, x
+            table.insert packed, y
 
-      world\add_collide_polygon object.x, object.y, packed
+          world\add_collide_polygon object.x, object.y, packed
+
+  Box(
+    0, 0
+    map.width * map.tilewidth
+    map.height * map.tileheight
+  )
+
+-- class Viewport extends EffectViewport
 
 class Ball
   linear_damping: 5
@@ -86,10 +103,9 @@ class Polygon
 
   make_shape: =>
     assert @opts.points, "missing points"
-    require("moon").p @opts.points
     love.physics.newPolygonShape unpack @opts.points
 
-class Box extends Polygon
+class PBox extends Polygon
   w: 10
   h: 10
 
@@ -107,15 +123,17 @@ class Npc extends Ball
   radius: 4
   linear_damping: 20
 
-  new: (opts={}) =>
-    @origin_x = opts.x
-    @origin_y = opts.y
-    super opts
+  new: (@opts={}) =>
+    @origin_x = @opts.x
+    @origin_y = @opts.y
+    super @opts
 
   draw: =>
     super!
     x, y = @body\getPosition!
-    g.print "dude", x, y
+
+    if name = @opts.name
+      g.print name, x, y
 
     g.points @origin_x, @origin_y
 
@@ -125,7 +143,7 @@ class Npc extends Ball
     if dir\len! > 1
       @body\applyForce unpack dir*3
 
-    -- push them back to origin 
+    -- push them back to origin
 
 class Player extends Ball
   radius: 4
@@ -220,51 +238,54 @@ class Game
     love.physics.setMeter 64
     @physics = love.physics.newWorld 0, 0, true
 
-    @player = Player {
-      world: @
-      x: cx
-      y: cy
-
-    }
-
     @objects = {
-      @player
-
-      Npc {
-        world: @
-        x: 15
-        y: cy
-      }
-
-      Box {
+      PBox {
         world: @
         x: 65
         y: 58
       }
 
-      Box {
+      PBox {
         world: @
         x: 45
         y: 45
       }
 
-      Box {
+      PBox {
         world: @
         x: 57
         y: 48
       }
 
-      Box {
+      PBox {
         world: @
         x: 70
         y: 42
       }
     }
 
-    load_map "maps.room", @
+    @map = load_map "maps.room", @
 
     -- thing = @objects[2]
     -- love.physics.newRopeJoint @ball.body, thing.body, cx, cy, 65, 58, 20
+
+  add_player: (x, y) =>
+    assert not @player, "player already added"
+
+    @player = Player {
+      world: @
+      :x, :y
+    }
+    table.insert @objects, @player
+
+
+  add_npc: (x,y, name) =>
+    print "Adding NPC"
+    table.insert @objects, Npc {
+      :name
+      :x, :y
+      world: @
+    }
 
   add_collide_polygon: (x, y, points) =>
     table.insert @objects, Polygon {
@@ -294,6 +315,10 @@ class Game
     @viewport\pop!
 
   update: (dt) =>
+    px, py = @player.body\getPosition!
+    @viewport\center_on_pt px, py, @map, dt*2
+
+    @viewport\update dt
     @physics\update dt
 
     for object in *@objects
