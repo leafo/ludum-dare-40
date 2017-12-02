@@ -24,7 +24,6 @@ class Ball
     @fixture = love.physics.newFixture @body, @shape, 1
     @fixture\setRestitution 0.9
 
-
   draw: (mode="line")=>
     x,y = @body\getPosition!
     g.circle mode, x, y, @shape\getRadius!
@@ -86,8 +85,20 @@ class Player extends Ball
     if CONTROLLER\downed "one"
       if @current_closest
         -- create a joint
-        sx, sy = @body\getPosition!
-        joint = love.physics.newWeldJoint @body, @current_closest.body, sx, sy, false
+        ax, ay = @body\getPosition!
+        bx, by = @current_closest.body\getPosition!
+        dist = (Vec2d(ax, ay) - Vec2d(bx, by))\len!
+
+        -- joint = love.physics.newWeldJoint @body, @current_closest.body, sx, sy, false
+        joint = love.physics.newRopeJoint(
+          @body
+          @current_closest.body
+          ax, ay
+          bx, by
+          dist*1.01
+          true
+        )
+
         print "Created joint"
         @jointed[@current_closest] = joint
       else
