@@ -249,6 +249,16 @@ class Game
     g.setLineStyle "rough"
 
     @viewport\apply!
+    table.sort @objects, (a, b) ->
+      atype = a.body\getType!
+      btype = a.body\getType!
+
+      if atype == btype
+        ax, ay = a.body\getPosition!
+        bx, by = b.body\getPosition!
+        ay < by
+      else
+        atype = "static"
 
     for object in *@objects
       if object.draw
