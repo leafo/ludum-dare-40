@@ -38,7 +38,7 @@
  </objectgroup>
  <objectgroup name="objects">
   <object id="2" name="spawn" type="spawn" x="143" y="98"/>
-  <object id="5" name="portal" type="portal" x="170" y="14" width="53" height="19">
+  <object id="5" name="portal" type="portal" x="142.667" y="38.6667" width="53" height="19">
    <properties>
     <property name="map" value="room"/>
    </properties>
@@ -46,22 +46,22 @@
   <object id="6" name="dude" type="npc" x="144.5" y="220.75"/>
   <object id="7" name="stranger" type="npc" x="107" y="231"/>
   <object id="8" name="dude2" type="npc" x="77.3333" y="186"/>
-  <object id="9" name="box" type="box" x="101.75" y="144.667">
+  <object id="9" name="box" type="box" x="149.083" y="16">
    <properties>
     <property name="owner" value="dude"/>
    </properties>
   </object>
-  <object id="10" name="box" type="box" x="135.75" y="146.417">
+  <object id="10" name="box" type="box" x="205.75" y="31.75">
    <properties>
     <property name="owner" value="dude"/>
    </properties>
   </object>
-  <object id="11" name="box" type="box" x="105.25" y="157.917">
+  <object id="11" name="box" type="box" x="129.917" y="27.9167">
    <properties>
     <property name="owner" value="dude"/>
    </properties>
   </object>
-  <object id="12" name="box" type="box" x="114" y="142.667">
+  <object id="12" name="box" type="box" x="168.667" y="17.3333">
    <properties>
     <property name="owner" value="dude"/>
    </properties>
