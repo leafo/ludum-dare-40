@@ -57,10 +57,26 @@
   <object id="11" name="dude" type="npc" x="152" y="102.5"/>
   <object id="12" name="dude2" type="npc" x="123" y="311"/>
   <object id="13" name="stranger" type="npc" x="79" y="116"/>
-  <object id="19" name="box" type="box" x="140.25" y="84.5"/>
-  <object id="20" name="box" type="box" x="125.5" y="86"/>
-  <object id="21" name="box" type="box" x="113.25" y="85"/>
-  <object id="22" name="box" type="box" x="128.75" y="81"/>
+  <object id="19" name="box" type="box" x="140.25" y="84.5">
+   <properties>
+    <property name="owner" value="dude"/>
+   </properties>
+  </object>
+  <object id="20" name="box" type="box" x="125.5" y="86">
+   <properties>
+    <property name="owner" value="dude"/>
+   </properties>
+  </object>
+  <object id="21" name="box" type="box" x="113.25" y="85">
+   <properties>
+    <property name="owner" value="dude"/>
+   </properties>
+  </object>
+  <object id="22" name="box" type="box" x="128.75" y="81">
+   <properties>
+    <property name="owner" value="dude"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup color="#ff6464" name="collide">
   <object id="1" x="213" y="171">

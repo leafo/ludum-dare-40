@@ -170,7 +170,8 @@ class Player extends Ball
     if object.is_npc
       @world\start_dialog_with object
     elseif object.is_grabbable
-      @grab object
+      if object\test_grab!
+        @grab object
 
   grab: (object) =>
     ax, ay = @body\getPosition!

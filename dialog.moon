@@ -11,7 +11,8 @@ scope = setmetatable {
     response = coroutine.yield {"select", [t[1] for t in *choices]}
 
     if t = choices[response]
-      t[2]!
+      if fn = t[2]
+        fn!
 
 }, __index: _G
 
@@ -118,6 +119,7 @@ class Dialog extends VList
               }
 
             table.insert @items, HList [make_choice c, idx for idx, c in ipairs choices]
+            wait 0.2 -- don't let them skip by accident without reading
 
             while true
               switch wait_for_controller "left", "right", "one", "two"

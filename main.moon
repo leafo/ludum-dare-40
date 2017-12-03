@@ -26,7 +26,8 @@ load_map = (mod, world) ->
             when "npc"
               world\add_npc object.x, object.y, object.name
             when "box"
-              world\add_box object.x, object.y
+              owner = (object.properties or {}).owner
+              world\add_box object.x, object.y, owner
 
       when "collide"
         for object in *layer.objects
@@ -57,6 +58,7 @@ class DialogScreen
     dialog = Dialog {
       spec: require("dialogs")[@object.name] or @default_dialog
       object: @object
+      entry_point: @opts.entry_point
     }
 
     @seq = Sequence ->
@@ -135,6 +137,15 @@ class PBox extends Polygon
   h: 10
   is_grabbable: true
 
+  npc_owner: =>
+    @world.npcs[@opts.owner_name]
+
+  test_grab: =>
+    if owner = @npc_owner!
+      owner\allowed_grab @
+    else
+      true
+
   draw: (...) =>
     super ...
     g.points @center!
@@ -161,8 +172,24 @@ class Npc extends Ball
     @name = @opts.name
     super @opts
 
+  allowed_grab: =>
+    print "allowed to grab??", @name, @has_dialog_tree "grab_box"
+    if @has_dialog_tree "grab_box"
+      print "we have the dialog!"
+      @world\start_dialog_with @, "grab_box"
+      return false
+
+    true
+
   center: =>
     @body\getPosition!
+
+  has_dialog_tree: (name) =>
+    spec = @get_dialog_spec!
+    spec and spec[name]
+
+  get_dialog_spec: =>
+    require("dialogs")[@name]
 
   draw: =>
     super!
@@ -218,18 +245,22 @@ class Game
     @viewport\center_on_pt @player\center!
     table.insert @objects, @player
 
-  add_box: (x, y) =>
+  add_box: (x, y, owner) =>
     table.insert @objects, PBox {
       world: @
+      owner_name: owner
       :x, :y
     }
 
   add_npc: (x,y, name) =>
-    table.insert @objects, Npc {
+    @npcs or= {}
+    npc = Npc {
       :name
       :x, :y
       world: @
     }
+    @npcs[name] = npc
+    table.insert @objects, npc
 
   add_collide_polygon: (x, y, points) =>
     table.insert @objects, Polygon {
@@ -239,10 +270,11 @@ class Game
       :points
     }
 
-  start_dialog_with: (object) =>
+  start_dialog_with: (object, entry_point) =>
     @current_dialog = DialogScreen {
       world: @
       object: object
+      :entry_point
     }
 
   draw: =>

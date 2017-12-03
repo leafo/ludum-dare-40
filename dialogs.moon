@@ -9,6 +9,12 @@
           say "Well isn't that endearing..."
         }
       }
+
+    grab_box: =>
+      ask "What are you doing touching my boxes?", {
+        {"Sorry"}
+        {"Chill out bucko'"}
+      }
   }
   dude2: {
     default: => say "Bring me boxes please"

@@ -149,7 +149,9 @@ return {
           height = 0,
           rotation = 0,
           visible = true,
-          properties = {}
+          properties = {
+            ["owner"] = "dude"
+          }
         },
         {
           id = 20,
@@ -162,7 +164,9 @@ return {
           height = 0,
           rotation = 0,
           visible = true,
-          properties = {}
+          properties = {
+            ["owner"] = "dude"
+          }
         },
         {
           id = 21,
@@ -175,7 +179,9 @@ return {
           height = 0,
           rotation = 0,
           visible = true,
-          properties = {}
+          properties = {
+            ["owner"] = "dude"
+          }
         },
         {
           id = 22,
@@ -188,7 +194,9 @@ return {
           height = 0,
           rotation = 0,
           visible = true,
-          properties = {}
+          properties = {
+            ["owner"] = "dude"
+          }
         }
       }
     },
