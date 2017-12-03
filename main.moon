@@ -7,43 +7,11 @@ import Dialog from require "dialog"
 
 import Ball from require "ball"
 import Player from require "player"
+import Map from require "map"
 
 load_font = (img, chars)->
   font_image = imgfy img
   g.newImageFont font_image.tex, chars
-
--- load the map into physics
-load_map = (mod, world) ->
-  map = require mod
-
-  for layer in *map.layers
-    switch layer.name
-      when "objects"
-        for object in *layer.objects
-          switch object.type
-            when "spawn"
-              world\add_player object.x, object.y
-            when "npc"
-              world\add_npc object.x, object.y, object.name
-            when "box"
-              owner = (object.properties or {}).owner
-              world\add_box object.x, object.y, owner
-
-      when "collide"
-        for object in *layer.objects
-          continue unless object.shape == "polygon"
-          packed = {}
-          for {:x, :y} in *object.polygon
-            table.insert packed, x
-            table.insert packed, y
-
-          world\add_collide_polygon object.x, object.y, packed
-
-  Box(
-    0, 0
-    map.width * map.tilewidth
-    map.height * map.tileheight
-  )
 
 
 class DialogScreen
@@ -232,7 +200,10 @@ class Game
     @entities = DrawList!
 
     @objects = {}
-    @map = load_map "maps.room", @
+    @map = Map {
+      world: @
+      module: "maps.room"
+    }
 
   add_player: (x, y) =>
     assert not @player, "player already added"
