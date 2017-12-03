@@ -11,12 +11,19 @@ class Npc extends Ball
   time: 0
 
   is_npc: true
+  default_balls_opts: {
+    scale: 1.3
+    outline_eyes: true
+  }
 
   new: (@opts={}) =>
     @origin_x = @opts.x
     @origin_y = @opts.y
     @name = @opts.name
     @time_offset = love.math.random! * math.pi * 2
+
+    @spec = require("npcs")[@name] or {}
+    @state = @spec.state or {}
 
     @facing = Vec2d 0, 1
     @default_facing_rad = @facing\radians!
@@ -25,7 +32,8 @@ class Npc extends Ball
     @seq = Sequence ->
       while true
         wait 1.0 + love.math.random!
-        @default_facing_rad = love.math.random! * math.pi
+        look_radius = @spec.look_radius or math.pi
+        @default_facing_rad = (love.math.random! - 0.5) * look_radius + math.pi / 2
 
     super @opts
 
@@ -48,7 +56,8 @@ class Npc extends Ball
 
   draw: =>
     if balls = @get_body_balls!
-      @draw_balls balls, scale: 1.3, outline_eyes: true
+      opts = @spec.balls_opts or @default_balls_opts
+      @draw_balls balls, opts
     else
       @draw_node!
 
@@ -57,21 +66,17 @@ class Npc extends Ball
 
   -- balls that make up the body
   get_body_balls: =>
-    eye_direction = @smooth_facing
-    eye_pos = eye_direction * 3
-
-    {
-      {0,0,0,  4, WHITE}
-      {0,-4,0, 4, WHITE}
-
-      {eye_pos[1], -5, eye_pos[2], 2, BLACK} -- eye
-    }
+    if @spec.body_balls
+      @spec.body_balls @
 
   -- if it's not a balls, just add the node
   draw_node: =>
     Ball.draw @
     g.setPointSize 1
     g.points @origin_x, @origin_y
+
+  display_name: =>
+    (@spec.label or @name or "unknown")\lower!
 
   update: (dt) =>
     @time += dt
@@ -103,7 +108,7 @@ class Npc extends Ball
     if @world.current_target == @
       @label or= CenterAnchor(
         x, y - @radius*5
-        Border RevealLabel(@name), {
+        Border RevealLabel(@display_name!), {
           background: { 30, 30, 30, 200 }
           border: false
           padding: 2

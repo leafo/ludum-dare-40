@@ -1,6 +1,16 @@
 {
   whitelist_globals: {
     ["."]: {
+
+      "say"
+      "ask"
+
+      "WHITE"
+      "BLACK"
+      "RED"
+      "BLUE"
+      "GREEN"
+
       "AUDIO"
       "GAME_CONFIG"
       "CONTROLLER"
@@ -9,8 +19,7 @@
       "wait"
       "wait_until"
       "wait_for_one"
-      "say"
-      "ask"
+      "tween"
 
       "love"
       "AnimatedTile"

@@ -39,7 +39,9 @@ class ChoiceTick extends Box
 
   draw: =>
     if @is_selected!
+      COLOR\push GREEN
       super!
+      COLOR\pop!
       @cursor\draw! if @cursor
     else
       super.outline @
@@ -91,7 +93,7 @@ class Dialog extends VList
               -> revealed = true
             }
 
-            @items = { Label(object.name), label }
+            @items = { Label(object\display_name!), label }
 
             wait_for_one(
               ->
