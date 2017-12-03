@@ -12,6 +12,7 @@ import Npc from require "npc"
 
 DEFAULT_COLOR = {255,255,255}
 HIGHLIGHT = {120, 255, 100}
+DIALOG_BG = { 30, 30, 30, 220 }
 
 load_font = (img, chars)->
   font_image = imgfy img
@@ -68,9 +69,9 @@ class DialogScreen
       @close!
 
     @content = Border dialog, {
-      background: { 30, 30, 30, 200 }
-      border: false
-      padding: 2
+      background: DIALOG_BG
+      border: {120,120,120}
+      padding: 4
     }
 
     viewport = @opts.world.viewport

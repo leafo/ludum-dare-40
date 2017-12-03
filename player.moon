@@ -84,18 +84,7 @@ class Player extends Ball
       (@flip_foot and 0 or math.pi) + leg_t * 12
     ) * @stride
 
-    table.sort balls, (a, b) -> (a[2] + a[3] / 2) < (a[2] + b[3] / 2)
-
-    g.push!
-    g.translate x, y
-    g.scale 1.3, 1.3
-
-    for {x,y,z, radius, color} in *balls
-      COLOR\push unpack color
-      g.circle "fill", x, y + z / 2, radius
-      COLOR\pop!
-
-    g.pop!
+    @draw_balls balls, scale: 1.3
 
   make_pupil: (eye_dir, radius, protrusion) =>
     pupil = eye_dir * protrusion
