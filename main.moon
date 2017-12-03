@@ -185,6 +185,25 @@ class Npc extends Ball
 
     -- push them back to origin
 
+class Portal extends Box
+  new: (opts={}) =>
+    @w = opts.w
+    @h = opts.h
+    @x = opts.x
+    @x = opts.y
+    @map = opts.map
+
+  on_touch: =>
+
+  draw: =>
+    @outline!
+
+  get_next_map: =>
+
+
+-- contains a map, objects on map, and any state
+class World
+
 class Game
   new: =>
     @viewport = EffectViewport {
@@ -200,10 +219,15 @@ class Game
     @entities = DrawList!
 
     @objects = {}
+    @portals = {}
+
     @map = Map {
       world: @
       module: "maps.room"
     }
+
+  add_portal: (p) =>
+    table.insert @portals, Portal p
 
   add_player: (x, y) =>
     assert not @player, "player already added"

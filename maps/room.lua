@@ -8,7 +8,7 @@ return {
   height = 26,
   tilewidth = 16,
   tileheight = 16,
-  nextobjectid = 27,
+  nextobjectid = 36,
   properties = {},
   tilesets = {},
   layers = {
@@ -174,6 +174,21 @@ return {
           visible = true,
           properties = {
             ["owner"] = "dude"
+          }
+        },
+        {
+          id = 27,
+          name = "portal",
+          type = "portal",
+          shape = "rectangle",
+          x = 77.3333,
+          y = 162.667,
+          width = 79.3333,
+          height = 25.3333,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["map"] = "town"
           }
         }
       }

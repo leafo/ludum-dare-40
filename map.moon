@@ -22,6 +22,14 @@ class Map extends Box
           @world\add_player object.x, object.y
         when "npc"
           @world\add_npc object.x, object.y, object.name
+        when "portal"
+          @world\add_portal {
+            x: object.x
+            y: object.y
+            w: object.w
+            h: object.h
+            map: object.properties.map
+          }
         when "box"
           owner = (object.properties or {}).owner
           @world\add_box object.x, object.y, owner

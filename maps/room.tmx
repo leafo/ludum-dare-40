@@ -55,6 +55,11 @@
     <property name="owner" value="dude"/>
    </properties>
   </object>
+  <object id="27" name="portal" type="portal" x="77.3333" y="162.667" width="79.3333" height="25.3333">
+   <properties>
+    <property name="map" value="town"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup color="#ff6464" name="collide">
   <object id="1" x="213" y="171">
