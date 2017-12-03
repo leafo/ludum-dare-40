@@ -1,0 +1,121 @@
+return {
+  version = "1.1",
+  luaversion = "5.1",
+  tiledversion = "1.0.3",
+  orientation = "orthogonal",
+  renderorder = "right-down",
+  width = 12,
+  height = 12,
+  tilewidth = 16,
+  tileheight = 16,
+  nextobjectid = 9,
+  properties = {},
+  tilesets = {},
+  layers = {
+    {
+      type = "tilelayer",
+      name = "Tile Layer 1",
+      x = 0,
+      y = 0,
+      width = 12,
+      height = 12,
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      properties = {},
+      encoding = "lua",
+      data = {
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+      }
+    },
+    {
+      type = "objectgroup",
+      name = "objects",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      draworder = "topdown",
+      properties = {},
+      objects = {
+        {
+          id = 2,
+          name = "dude",
+          type = "npc",
+          shape = "rectangle",
+          x = 57.6667,
+          y = 34,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 4,
+          name = "diary",
+          type = "npc",
+          shape = "rectangle",
+          x = 115.667,
+          y = 36.6667,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 5,
+          name = "dude2",
+          type = "npc",
+          shape = "rectangle",
+          x = 27.6667,
+          y = 82.3333,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 6,
+          name = "stranger",
+          type = "npc",
+          shape = "rectangle",
+          x = 137,
+          y = 98,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 7,
+          name = "spawn",
+          type = "spawn",
+          shape = "rectangle",
+          x = 90.6667,
+          y = 81.3333,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        }
+      }
+    }
+  }
+}

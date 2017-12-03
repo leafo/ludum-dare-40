@@ -10,9 +10,17 @@ import Player from require "player"
 import Map from require "map"
 import Npc from require "npc"
 
-DEFAULT_COLOR = {255,255,255}
-HIGHLIGHT = {120, 255, 100}
-DIALOG_BG = { 30, 30, 30, 220 }
+export DEFAULT_COLOR = {255,255,255}
+export HIGHLIGHT = {120, 255, 100}
+export DIALOG_BG = { 30, 30, 30, 220 }
+
+export WHITE = {255,255,255}
+export BLACK = {0,0,0}
+
+export RED = {255,100,100}
+export BLUE = {100,100,255}
+export GREEN = {100,255,100}
+
 
 load_font = (img, chars)->
   font_image = imgfy img
@@ -205,6 +213,8 @@ class World
       module: assert opts.map, "missing map"
     }
 
+    assert @player, "woops, no player spawned"
+
   on_show: =>
 
   on_hide: =>
@@ -379,7 +389,7 @@ love.load = ->
   game = Game!
 
   export CONTROLLER = Controller GAME_CONFIG.keys, "auto"
-  export DISPATCHER = Dispatcher -> game\get_world "room"
+  export DISPATCHER = Dispatcher -> game\get_world "npc_test"
   DISPATCHER.default_transition = SweepTransition
 
   DISPATCHER\bind love

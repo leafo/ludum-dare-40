@@ -1,7 +1,5 @@
 {graphics: g} = love
 
-BLACK = {0,0,0}
-
 -- a character base
 class Ball
   linear_damping: 5
@@ -109,6 +107,16 @@ class Ball
 
     -- draw the actual character
     for {x,y,z, radius, color} in *balls
+      -- outline the black with white
+      if color == BLACK and opts.outline_eyes
+        COLOR\push WHITE
+
+        for ox=-1,1,2
+          for oy=-1,1,2
+            g.circle "fill", (ox * 2 / 3) + x, (oy * 2 / 3) + y + z / 2, radius
+
+        COLOR\pop!
+
       COLOR\push unpack color
       g.circle "fill", x, y + z / 2, radius
       COLOR\pop!

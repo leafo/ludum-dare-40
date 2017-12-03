@@ -4,12 +4,6 @@
 import Ball from require "ball"
 import Cursor from require "cursor"
 
-WHITE = {255,255,255}
-BLACK = {0,0,0}
-
-RED = {255,100,100}
-BLUE = {100,100,255}
-
 class Player extends Ball
   radius: 4
   stride_target: 0

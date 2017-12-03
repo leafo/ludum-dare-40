@@ -2,17 +2,13 @@
 import CenterAnchor, RevealLabel, Border from require "lovekit.ui"
 import Ball from require "ball"
 
-WHITE = {255,255,255}
-BLACK = {0,0,0}
-
-RED = {255,100,100}
-BLUE = {100,100,255}
-GREEN = {100,255,100}
+DEG30 = math.pi / 6
 
 class Npc extends Ball
   radius: 4
   linear_damping: 20
   name: "npc"
+  time: 0
 
   is_npc: true
 
@@ -20,6 +16,17 @@ class Npc extends Ball
     @origin_x = @opts.x
     @origin_y = @opts.y
     @name = @opts.name
+    @time_offset = love.math.random! * math.pi * 2
+
+    @facing = Vec2d 0, 1
+    @default_facing = @facing
+    @smooth_facing = @facing
+
+    @seq = Sequence ->
+      while true
+        wait 1.0 + love.math.random!
+        @default_facing = love.math.random! * math.pi
+
     super @opts
 
   allowed_grab: =>
@@ -41,7 +48,7 @@ class Npc extends Ball
 
   draw: =>
     if balls = @get_body_balls!
-      @draw_balls balls, scale: 1.3
+      @draw_balls balls, scale: 1.3, outline_eyes: true
     else
       @draw_node!
 
@@ -50,7 +57,7 @@ class Npc extends Ball
 
   -- balls that make up the body
   get_body_balls: =>
-    eye_direction = Vec2d.from_radians love.timer.getTime! * 3
+    eye_direction = @smooth_facing
     eye_pos = eye_direction * 3
 
     {
@@ -67,10 +74,32 @@ class Npc extends Ball
     g.points @origin_x, @origin_y
 
   update: (dt) =>
+    @time += dt
     x, y = @body\getPosition!
+
+    @seq\update dt
+
+    -- push them back to their origin
     dir = Vec2d(@origin_x, @origin_y) - Vec2d(x,y)
     if dir\len! > 1
       @body\applyForce unpack dir*3
+
+    if @world.player
+      to_player = Vec2d(@world.player\center!) - Vec2d(x,y)
+      local facing
+      if to_player\len! < 40
+        -- abs makes it always look down
+        facing = math.abs to_player\normalized!\radians!
+        facing = math.min math.pi - DEG30, math.max DEG30, facing
+      else
+        -- TODO: sequence random heading
+        facing = math.pi / 2 -- down
+
+      -- wobble with me
+      facing += math.sin(@time_offset + @time * 3) * DEG30/3
+      @facing = Vec2d.from_radians facing
+
+    @smooth_facing = @smooth_facing\merge_angle @facing, dt*10
 
     if @world.current_target == @
       @label or= CenterAnchor(
