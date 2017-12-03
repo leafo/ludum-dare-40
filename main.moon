@@ -182,8 +182,6 @@ class Npc extends Ball
     if @label
       @label\update dt
 
-    -- push them back to origin
-
 class Portal extends Box
   new: (opts={}) =>
     @w = opts.w
@@ -206,7 +204,6 @@ class Portal extends Box
 
   update: (dt) =>
     @seq\update dt
-
 
 -- contains a map, objects on map, and any state
 class World
@@ -236,15 +233,17 @@ class World
     assert map_name, "no map name provided to travel to"
     print "Going to", map_name
     next_world = @game\get_world map_name
-    next_world\place_player map_name
+    next_world\place_player @name
     DISPATCHER\replace next_world
 
   -- place player on portal
   place_player: (source_portal) =>
+    print "source_portal", source_portal
     for portal in *@portals
-      if portal.destination == source_portal
-        print "found matching portal...."
 
+      if portal.destination == source_portal
+        @player.body\setPosition portal\center!
+        @player.body\setLinearVelocity 0, 0
 
   add_portal: (p) =>
     p.world = @
