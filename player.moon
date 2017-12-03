@@ -4,37 +4,139 @@
 import Ball from require "ball"
 import Cursor from require "cursor"
 
+WHITE = {255,255,255}
+BLACK = {0,0,0}
+
+RED = {255,100,100}
+BLUE = {100,100,255}
+
 class Player extends Ball
   radius: 4
+  stride_target: 0
+  stride_speed: 1
+  stride: 0
 
   new: (...) =>
     super ...
     @holding = {}
     @cursors = DrawList!
+    @entities = DrawList!
+
     @facing = Vec2d 0, 1
     @smooth_facing = @facing
+
+    @entities\add Sequence ->
+      while true
+        wait_until -> CONTROLLER\movement_vector!\is_zero!
+        @stride_speed = 2
+
+        wait_until -> @is_active!
+        wait_until -> not CONTROLLER\movement_vector!\is_zero!
+
+        @stride_speed = 5
+
+        @flip_foot = not @flip_foot
+        @last_move_time = love.timer.getTime!
 
   draw: =>
     x,y = @body\getPosition!
 
-    super "fill"
-
     eye_size = 2
+    eye_protrusion = 4
+
+    facing = @smooth_facing
+    -- the balls that make up yr body
+    -- {x,y,z, radius, color}
+    balls = {
+      -- the player's body
+      {0,0,0, @radius, WHITE}
+    }
+
+    for i=-1,2,2
+      eye_dir = facing\rotate math.pi / 6 * i
+
+      eyeball = eye_dir * eye_protrusion * 0.9
+
+      for b in *@make_pupil eye_dir, eye_size, eye_protrusion
+        table.insert balls, b
+
+      -- eyeball thing
+      table.insert balls, {
+        eyeball[1]
+        -3
+        eyeball[2]
+        eye_size + 1
+        WHITE
+      }
+
+    speed = math.sqrt(Vec2d(@body\getLinearVelocity!)\len!) / 10
+
+    leg_t = if @last_move_time
+      love.timer.getTime! - @last_move_time
+    else
+      0
+
+    table.insert balls, @make_leg 3, 6, math.sin(
+      (@flip_foot and math.pi or 0) + leg_t * 12
+    ) * @stride
+
+    table.insert balls, @make_leg -3, 6, math.sin(
+      (@flip_foot and 0 or math.pi) + leg_t * 12
+    ) * @stride
+
+    table.sort balls, (a, b) -> (a[2] + a[3] / 2) < (a[2] + b[3] / 2)
 
     g.push!
     g.translate x, y
+    g.scale 1.3, 1.3
 
-    facing = @smooth_facing
-
-    for i=-1,2,2
-      x, y = unpack (facing*4)\rotate math.pi / 6 * i
-
-      g.circle "fill", x, y, eye_size + 1
-      COLOR\push 0,0,0
-      g.circle "fill", x, y , eye_size
+    for {x,y,z, radius, color} in *balls
+      COLOR\push unpack color
+      g.circle "fill", x, y + z / 2, radius
       COLOR\pop!
 
     g.pop!
+
+  make_pupil: (eye_dir, radius, protrusion) =>
+    pupil = eye_dir * protrusion
+
+    l = pupil\rotate(0.1) * 1.2
+    r = pupil\rotate(-0.1) * 1.2
+
+    {
+      {
+        pupil[1]
+        -3
+        pupil[2]
+        radius
+        BLACK
+      }
+
+      {
+        l[1]
+        -3
+        l[2]
+        radius * 2/3
+        BLACK
+      }
+
+      {
+        r[1]
+        -3
+        r[2]
+        radius * 2/3
+        BLACK
+      }
+    }
+
+
+  make_leg: (r, stride, t) =>
+    facing = @smooth_facing
+    joint = facing\cross! * r -- the origin of the leg on the body 
+    -- now move ball along joint according to t
+    pos = joint + t*stride*facing
+
+    { pos[1], 0, pos[2], 3, {255,255,255} }
 
   is_active: =>
     not @world.current_dialog
@@ -42,17 +144,18 @@ class Player extends Ball
   update: (dt) =>
     if @is_active!
       move = CONTROLLER\movement_vector!
-      if not move\is_zero!
+      @stride_target = move\len!
+
+      unless move\is_zero!
         @facing = move\normalized!
 
       @body\applyForce unpack move*6
 
     @smooth_facing = @smooth_facing\merge_angle @facing, dt*10
-
-    -- not used
-    -- @ball.body\applyLinearImpulse unpack move*dt*10
+    @stride = smooth_approach @stride, @stride_target, @stride_speed * dt
 
     @cursors\update dt
+    @entities\update dt
 
     closest, d = @closest_object!
     @current_closest = closest and d < @radius * 2 and closest
