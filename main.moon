@@ -75,6 +75,7 @@ class Polygon
 
     @world = world
     @type = @opts.type
+    @hidden = @opts.hidden
 
     @body = love.physics.newBody(
       physics
@@ -141,9 +142,7 @@ class Npc extends Ball
     super @opts
 
   allowed_grab: =>
-    print "allowed to grab??", @name, @has_dialog_tree "grab_box"
     if @has_dialog_tree "grab_box"
-      print "we have the dialog!"
       @world\start_dialog_with @, "grab_box"
       return false
 
@@ -260,6 +259,7 @@ class Game
   add_collide_polygon: (x, y, points) =>
     table.insert @objects, Polygon {
       type: "static"
+      hidden: true
       world: @
       :x, :y
       :points
@@ -276,6 +276,9 @@ class Game
     g.setLineStyle "rough"
 
     @viewport\apply!
+
+    @map\draw!
+
     table.sort @objects, (a, b) ->
       atype = a.body\getType!
       btype = a.body\getType!
@@ -288,6 +291,8 @@ class Game
         atype = "static"
 
     for object in *@objects
+      continue if object.hidden
+
       if object.draw
         if @current_target == object
           COLOR\push 255, 100, 100
@@ -318,6 +323,7 @@ class Game
 
     @viewport\center_on_pt px, py, @map, dt*2
 
+    @map\update dt
     @viewport\update dt
     @physics\update dt
     @entities\update dt

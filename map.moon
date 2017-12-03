@@ -2,10 +2,17 @@
 class Map extends Box
   new: (opts={}) =>
     @world = assert opts.world, "missing world"
-    map = require assert(opts.module, "missing module")
+    @images = {}
 
+    map = require assert(opts.module, "missing module")
     super 0,0, map.width * map.tilewidth, map.height * map.tileheight
     @add_layers map.layers
+
+  update: (dt) =>
+
+  draw: =>
+    for image in *@images
+      image.image\draw image.x, image.y
 
   add_layers: (layers) =>
     for layer in *layers
@@ -14,6 +21,15 @@ class Map extends Box
           @add_object_layer layer
         when "collide"
           @add_collide_layer layer
+        when "background"
+          require("moon").p layer
+          -- cool hack
+          fname = assert layer.image\match("([^/]+)$"), "failed to get file name"
+          table.insert @images, {
+            x: layer.offsetx or 0
+            y: layer.offsety or 0
+            image: imgfy "images/#{fname}"
+          }
 
   add_object_layer: (layer) =>
     for object in *layer.objects

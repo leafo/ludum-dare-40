@@ -1,87 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="26" height="26" tilewidth="16" tileheight="16" nextobjectid="27">
- <layer name="Tile Layer 1" width="26" height="26">
-  <data encoding="csv">
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-</data>
- </layer>
+<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="26" height="26" tilewidth="16" tileheight="16" nextobjectid="49">
+ <imagelayer name="background">
+  <image source="../images/room.png" width="183" height="109"/>
+ </imagelayer>
  <objectgroup name="objects">
-  <object id="5" name="player spawn" type="spawn" x="120.75" y="112.25"/>
-  <object id="11" name="dude" type="npc" x="152" y="102.5"/>
-  <object id="12" name="dude2" type="npc" x="123" y="311"/>
-  <object id="13" name="stranger" type="npc" x="79" y="116"/>
-  <object id="19" name="box" type="box" x="140.25" y="84.5">
+  <object id="5" name="player spawn" type="spawn" x="68.75" y="74.5"/>
+  <object id="11" name="dude" type="npc" x="157.25" y="88"/>
+  <object id="12" name="dude2" type="npc" x="128" y="313"/>
+  <object id="13" name="stranger" type="npc" x="136.25" y="94.75"/>
+  <object id="19" name="box" type="box" x="140.5" y="72.75">
    <properties>
     <property name="owner" value="dude"/>
    </properties>
   </object>
-  <object id="20" name="box" type="box" x="125.5" y="86">
+  <object id="20" name="box" type="box" x="118.75" y="69">
    <properties>
     <property name="owner" value="dude"/>
    </properties>
   </object>
-  <object id="21" name="box" type="box" x="113.25" y="85">
+  <object id="21" name="box" type="box" x="106.5" y="71">
    <properties>
     <property name="owner" value="dude"/>
    </properties>
   </object>
-  <object id="22" name="box" type="box" x="128.75" y="81">
+  <object id="22" name="box" type="box" x="110" y="84.25">
    <properties>
     <property name="owner" value="dude"/>
    </properties>
   </object>
-  <object id="27" name="portal" type="portal" x="77.3333" y="162.667" width="79.3333" height="25.3333">
+  <object id="27" name="portal" type="portal" x="82.3333" y="164.667" width="79.3333" height="25.3333">
    <properties>
     <property name="map" value="town"/>
    </properties>
   </object>
  </objectgroup>
  <objectgroup color="#ff6464" name="collide">
-  <object id="1" x="213" y="171">
-   <polygon points="-16,-1 -71,80 20,182 162,88 80,-66"/>
+  <object id="36" x="50.0833" y="68.4167">
+   <polygon points="0,0 -1.5,-31.5 -36.5,-25.75 -40.5,19.25 -13.25,19"/>
   </object>
-  <object id="8" x="191" y="110">
-   <polygon points="25.5,36 -29,-56 70,-29"/>
+  <object id="43" x="13.3333" y="85.6667">
+   <polygon points="0,0 -8.75,18.25 -17.25,-0.5"/>
   </object>
-  <object id="9" x="76" y="192">
-   <polygon points="-48,43 -19,24 -25,139 -47,114"/>
+  <object id="44" x="153.833" y="57.6667">
+   <polygon points="0,0 27.75,52.5 32,-17.5"/>
   </object>
-  <object id="25" x="37.5" y="132">
-   <polygon points="0,0 19.5,34 10,82 -15.5,95.5 -30.5,36 -18,12"/>
+  <object id="45" x="115.083" y="59.1667">
+   <polygon points="0,0 -68.25,3 -72,-60.5 -0.25,-64"/>
   </object>
-  <object id="24" x="169.5" y="48">
-   <polygon points="0,0 -21.5,-26 -69,-9 -83.5,-41.5 -17,-46 56.5,-16.5"/>
+  <object id="46" x="155.083" y="-2.58333">
+   <polygon points="0,0 0.5,64.75 -43.25,61.25 -43.75,-7"/>
   </object>
-  <object id="23" x="106.5" y="45">
-   <polygon points="0,0 -53.5,42.5 -79.5,91 -94,18.5 -40,-14.5"/>
-  </object>
-  <object id="26" x="178" y="315">
-   <polygon points="0,0 -43,28 -91,25.5 -117.5,18 -123,64 -25.5,62.5 31,27 15,-2.5"/>
+  <object id="48" x="1" y="101">
+   <polygon points="0,0 187,-0.666667 86.3333,20"/>
   </object>
  </objectgroup>
 </map>
