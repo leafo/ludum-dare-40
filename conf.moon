@@ -1,8 +1,8 @@
 
 
 export GAME_CONFIG = {
-  viewport_width: 1024 / 6
-  viewport_height: 576 / 6
+  viewport_width: math.floor 1024 / 6
+  viewport_height: math.floor 576 / 6
 
   scale: 4
 
