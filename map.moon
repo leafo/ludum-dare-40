@@ -22,7 +22,6 @@ class Map extends Box
         when "collide"
           @add_collide_layer layer
         when "background"
-          require("moon").p layer
           -- cool hack
           fname = assert layer.image\match("([^/]+)$"), "failed to get file name"
           table.insert @images, {
@@ -42,9 +41,9 @@ class Map extends Box
           @world\add_portal {
             x: object.x
             y: object.y
-            w: object.w
-            h: object.h
-            map: object.properties.map
+            w: object.width
+            h: object.height
+            destination: object.properties.map
           }
         when "box"
           owner = (object.properties or {}).owner

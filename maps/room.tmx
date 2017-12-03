@@ -5,9 +5,9 @@
  </imagelayer>
  <objectgroup name="objects">
   <object id="5" name="player spawn" type="spawn" x="68.75" y="74.5"/>
-  <object id="11" name="dude" type="npc" x="157.25" y="88"/>
+  <object id="11" name="dude" type="npc" x="169.5" y="160"/>
   <object id="12" name="dude2" type="npc" x="128" y="313"/>
-  <object id="13" name="stranger" type="npc" x="136.25" y="94.75"/>
+  <object id="13" name="stranger" type="npc" x="132" y="170.25"/>
   <object id="19" name="box" type="box" x="140.5" y="72.75">
    <properties>
     <property name="owner" value="dude"/>
@@ -28,7 +28,7 @@
     <property name="owner" value="dude"/>
    </properties>
   </object>
-  <object id="27" name="portal" type="portal" x="82.3333" y="164.667" width="79.3333" height="25.3333">
+  <object id="27" name="portal" type="portal" x="137.604" y="94.4587" width="14.5833" height="6.4583">
    <properties>
     <property name="map" value="town"/>
    </properties>

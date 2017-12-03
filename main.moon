@@ -1,6 +1,6 @@
 require "lovekit.all"
 {graphics: g} = love
-export DEBUG = false
+export DEBUG = true
 
 import CenterAnchor, VList, Label, RevealLabel, Border from require "lovekit.ui"
 import Dialog from require "dialog"
@@ -189,30 +189,37 @@ class Portal extends Box
     @w = opts.w
     @h = opts.h
     @x = opts.x
-    @x = opts.y
-    @map = opts.map
+    @y = opts.y
 
-  on_touch: =>
+    @destination = opts.destination
+    @world = assert opts.world, "missing world"
+
+    @seq = Sequence ->
+      while true
+        wait_until -> not @touches_pt @world.player\center!
+        wait_until -> @touches_pt @world.player\center!
+        @world\travel_to @destination
 
   draw: =>
-    @outline!
+    return unless DEBUG
+    @outline {100, 255,255}
 
-  get_next_map: =>
+  update: (dt) =>
+    @seq\update dt
 
 
 -- contains a map, objects on map, and any state
 class World
-
-class Game
-  new: =>
+  new: (opts={}) =>
     @viewport = EffectViewport {
       pixel_scale: true
       scale: GAME_CONFIG.scale
     }
 
-    cx, cy = @viewport\center!
+    @name = assert opts.name, "world: missing name"
+    @game = assert opts.game, "world: missing game"
 
-    love.physics.setMeter 64
+    cx, cy = @viewport\center!
     @physics = love.physics.newWorld 0, 0, true
 
     @entities = DrawList!
@@ -222,10 +229,25 @@ class Game
 
     @map = Map {
       world: @
-      module: "maps.room"
+      module: assert opts.map, "missing map"
     }
 
+  travel_to: (map_name) =>
+    assert map_name, "no map name provided to travel to"
+    print "Going to", map_name
+    next_world = @game\get_world map_name
+    next_world\place_player map_name
+    DISPATCHER\replace next_world
+
+  -- place player on portal
+  place_player: (source_portal) =>
+    for portal in *@portals
+      if portal.destination == source_portal
+        print "found matching portal...."
+
+
   add_portal: (p) =>
+    p.world = @
     table.insert @portals, Portal p
 
   add_player: (x, y) =>
@@ -305,6 +327,9 @@ class Game
 
     @entities\draw!
 
+    for portal in *@portals
+      portal\draw!
+
     if @player
       @player.cursors\draw!
 
@@ -328,6 +353,9 @@ class Game
     @physics\update dt
     @entities\update dt
 
+    for portal in *@portals
+      portal\update dt
+
     if @current_dialog
       @current_dialog\update dt
 
@@ -337,14 +365,34 @@ class Game
 
     @current_target = @player and @player.current_closest
 
+
+class Game
+  new: =>
+    @worlds = {}
+    @state = {}
+
+  get_world: (name) =>
+    unless @worlds[name]
+      @worlds[name] = World {
+        :name
+        game: @
+        map: "maps.#{name}"
+      }
+
+    @worlds[name]
+
 love.load = ->
   fonts = {
     default: load_font "images/font2.png",
       [[ abcdefghijklmnopqrstuvwxyz-1234567890!.,:;'"?$&%]]
   }
 
+  love.physics.setMeter 64
   g.setFont fonts.default
 
+  game = Game!
+
   export CONTROLLER = Controller GAME_CONFIG.keys, "auto"
-  export DISPATCHER = Dispatcher -> Game!
+  export DISPATCHER = Dispatcher -> game\get_world "room"
+
   DISPATCHER\bind love

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="32" height="24" tilewidth="16" tileheight="16" nextobjectid="5">
+<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="32" height="24" tilewidth="16" tileheight="16" nextobjectid="6">
  <layer name="Tile Layer 1" width="32" height="24">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -38,5 +38,10 @@
  </objectgroup>
  <objectgroup name="objects">
   <object id="2" name="spawn" type="spawn" x="143" y="98"/>
+  <object id="5" name="portal" type="portal" x="170" y="14" width="53" height="19">
+   <properties>
+    <property name="map" value="room"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>
