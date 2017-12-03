@@ -142,13 +142,15 @@ class Player extends Ball
     not @world.current_dialog
 
   update: (dt) =>
-    if @is_active!
-      move = CONTROLLER\movement_vector!
-      @stride_target = move\len!
+    move = if @is_active!
+      CONTROLLER\movement_vector!
+    else
+      Vec2d 0, 0
 
-      unless move\is_zero!
-        @facing = move\normalized!
+    @stride_target = move\len!
 
+    unless move\is_zero!
+      @facing = move\normalized!
       @body\applyForce unpack move*6
 
     @smooth_facing = @smooth_facing\merge_angle @facing, dt*10

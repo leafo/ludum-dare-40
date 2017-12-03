@@ -1,6 +1,6 @@
 require "lovekit.all"
 {graphics: g} = love
-export DEBUG = true
+export DEBUG = false
 
 import CenterAnchor, VList, Label, RevealLabel, Border from require "lovekit.ui"
 import Dialog from require "dialog"
@@ -10,10 +10,12 @@ import Player from require "player"
 import Map from require "map"
 import Npc from require "npc"
 
+DEFAULT_COLOR = {255,255,255}
+HIGHLIGHT = {120, 255, 100}
+
 load_font = (img, chars)->
   font_image = imgfy img
   g.newImageFont font_image.tex, chars
-
 
 class DialogScreen
   default_dialog:  {
@@ -271,9 +273,9 @@ class World
 
       if object.draw
         if @current_target == object
-          COLOR\push 255, 100, 100
+          COLOR\push HIGHLIGHT
         else
-          COLOR\push 255, 255,255
+          COLOR\push DEFAULT_COLOR
 
         object\draw!
 
