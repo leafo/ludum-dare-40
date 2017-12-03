@@ -49,7 +49,14 @@ class Npc extends Ball
       @body\applyForce unpack dir*3
 
     if @world.current_target == @
-      @label or= CenterAnchor x, y - @radius*2, RevealLabel @name
+      @label or= CenterAnchor(
+        x, y - @radius*2,
+        Border RevealLabel(@name), {
+          background: { 30, 30, 30, 200 }
+          border: false
+          padding: 2
+        }
+      )
     else
       @label = nil
 
