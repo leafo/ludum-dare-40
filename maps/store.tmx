@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="12" height="9" tilewidth="16" tileheight="16" nextobjectid="69">
+ <imagelayer name="background">
+  <image source="../images/store.png" width="185" height="115"/>
+ </imagelayer>
+ <objectgroup name="objects">
+  <object id="5" name="player spawn" type="spawn" x="65.25" y="76.25"/>
+  <object id="68" name="portal" type="portal" x="82.5455" y="109.455" width="20.5455" height="4">
+   <properties>
+    <property name="map" value="town"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup color="#ff6464" name="collide">
+  <object id="54" x="72.25" y="97">
+   <polygon points="0,0 0.613636,20.2045 -73,11.75 -72.5,-6.75"/>
+  </object>
+  <object id="55" x="53.75" y="77.5">
+   <polygon points="0,0 -24,16.5 -53.25,-0.75 0.25,-11.5"/>
+  </object>
+  <object id="56" x="50.75" y="71.25">
+   <polygon points="0,0 34,-1.25 41.5,-8.75 19.25,-13.75"/>
+  </object>
+  <object id="57" x="91.75" y="63.25">
+   <polygon points="0,0 4.25,3.5 14.5,3.25 17.5,-1 8,-6.5"/>
+  </object>
+  <object id="58" x="104" y="63.5">
+   <polygon points="0,0 20,0.25 9.5,-16.75"/>
+  </object>
+  <object id="59" x="119.25" y="61.75">
+   <polygon points="0,0 1,13 8.25,19.25 48,18"/>
+  </object>
+  <object id="60" x="161" y="79">
+   <polygon points="0,0 8.5,6.75 11.75,-3"/>
+  </object>
+  <object id="62" x="181.25" y="101.75">
+   <polygon points="-14.9091,0.727273 -68.3864,3.97727 -69.3636,16.4091 7.5,10"/>
+  </object>
+  <object id="63" x="68.4545" y="112.182">
+   <polygon points="1.27273,2.36364 49.1364,1.36364 22.25,7.5"/>
+  </object>
+  <object id="65" x="173.455" y="83.4545">
+   <polygon points="0,0 -14.9091,3.27273 -14,12.1818 -7.09091,20.1818"/>
+  </object>
+  <object id="66" x="32.9091" y="88.5455">
+   <polygon points="0,0 20.5455,6.72727 1.27273,9.81818"/>
+  </object>
+ </objectgroup>
+</map>

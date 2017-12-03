@@ -8,7 +8,7 @@ return {
   height = 19,
   tilewidth = 16,
   tileheight = 16,
-  nextobjectid = 48,
+  nextobjectid = 62,
   properties = {},
   tilesets = {},
   layers = {
@@ -37,8 +37,8 @@ return {
           name = "spawn",
           type = "spawn",
           shape = "rectangle",
-          x = 278,
-          y = 95.333,
+          x = 285.333,
+          y = 241.333,
           width = 0,
           height = 0,
           rotation = 0,
@@ -65,8 +65,8 @@ return {
           name = "dude",
           type = "npc",
           shape = "rectangle",
-          x = 202.167,
-          y = 207.416,
+          x = 449.67,
+          y = 172.325,
           width = 0,
           height = 0,
           rotation = 0,
@@ -78,21 +78,8 @@ return {
           name = "stranger",
           type = "npc",
           shape = "rectangle",
-          x = 291.333,
-          y = 231.667,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 8,
-          name = "dude2",
-          type = "npc",
-          shape = "rectangle",
-          x = 237.333,
-          y = 236,
+          x = 307.666,
+          y = 220,
           width = 0,
           height = 0,
           rotation = 0,
@@ -104,8 +91,8 @@ return {
           name = "box",
           type = "box",
           shape = "rectangle",
-          x = 247.583,
-          y = 104.75,
+          x = 475.583,
+          y = 193.417,
           width = 0,
           height = 0,
           rotation = 0,
@@ -119,8 +106,8 @@ return {
           name = "box",
           type = "box",
           shape = "rectangle",
-          x = 318.917,
-          y = 99.6667,
+          x = 475.917,
+          y = 183,
           width = 0,
           height = 0,
           rotation = 0,
@@ -134,8 +121,8 @@ return {
           name = "box",
           type = "box",
           shape = "rectangle",
-          x = 339.917,
-          y = 95,
+          x = 405.917,
+          y = 188.333,
           width = 0,
           height = 0,
           rotation = 0,
@@ -149,14 +136,59 @@ return {
           name = "box",
           type = "box",
           shape = "rectangle",
-          x = 299.667,
-          y = 105,
+          x = 426.334,
+          y = 181.333,
           width = 0,
           height = 0,
           rotation = 0,
           visible = true,
           properties = {
             ["owner"] = "dude"
+          }
+        },
+        {
+          id = 58,
+          name = "portal",
+          type = "portal",
+          shape = "rectangle",
+          x = 235.956,
+          y = 288.125,
+          width = 31.0568,
+          height = 9.20455,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["map"] = "beach"
+          }
+        },
+        {
+          id = 59,
+          name = "portal",
+          type = "portal",
+          shape = "rectangle",
+          x = 92.5625,
+          y = 163.761,
+          width = 13.0568,
+          height = 5.56819,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["map"] = "house"
+          }
+        },
+        {
+          id = 60,
+          name = "portal",
+          type = "portal",
+          shape = "rectangle",
+          x = 264.805,
+          y = 195.481,
+          width = 16.9318,
+          height = 5.45455,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["map"] = "store"
           }
         }
       }
@@ -482,8 +514,8 @@ return {
           rotation = 0,
           visible = true,
           polygon = {
-            { x = 0, y = 0 },
-            { x = 30.6667, y = -2.33333 },
+            { x = -0.625, y = 6.125 },
+            { x = 33.1667, y = 6.29167 },
             { x = 10, y = -45.3333 }
           },
           properties = {}
@@ -539,8 +571,8 @@ return {
           rotation = 0,
           visible = true,
           polygon = {
-            { x = 0, y = 0 },
-            { x = -27, y = 14 },
+            { x = 1.45455, y = 7.63636 },
+            { x = -25.5455, y = 18.1818 },
             { x = -23.3333, y = -33.3333 }
           },
           properties = {}
@@ -576,8 +608,8 @@ return {
           visible = true,
           polygon = {
             { x = 0, y = 0 },
-            { x = 18.3333, y = 40.3333 },
-            { x = 92.3333, y = -19.3333 }
+            { x = 8.66663, y = 32.3333 },
+            { x = 69.6666, y = 44.6667 }
           },
           properties = {}
         },
@@ -593,8 +625,8 @@ return {
           rotation = 0,
           visible = true,
           polygon = {
-            { x = 0, y = 0 },
-            { x = -22, y = 37.3333 },
+            { x = -19.6667, y = 26.3333 },
+            { x = -23.6667, y = 37.6666 },
             { x = 53.6667, y = 46.6667 }
           },
           properties = {}
@@ -611,9 +643,9 @@ return {
           rotation = 0,
           visible = true,
           polygon = {
-            { x = 0, y = 0 },
-            { x = -29, y = 40.6667 },
-            { x = 65, y = 31.3333 }
+            { x = 0.666667, y = -3.33333 },
+            { x = -50, y = 3.6667 },
+            { x = -37.6667, y = 44.3333 }
           },
           properties = {}
         },
@@ -629,9 +661,9 @@ return {
           rotation = 0,
           visible = true,
           polygon = {
-            { x = 0, y = 0 },
-            { x = -17.6667, y = -43.6667 },
-            { x = -152.333, y = 0.666667 }
+            { x = 17.6667, y = -31.6667 },
+            { x = -27.3334, y = -35.3334 },
+            { x = 8.33367, y = 9 }
           },
           properties = {}
         },
@@ -648,7 +680,7 @@ return {
           visible = true,
           polygon = {
             { x = 0, y = 0 },
-            { x = -5, y = 49.3333 },
+            { x = 9.33333, y = 40.6666 },
             { x = -57.3333, y = 14.3333 }
           },
           properties = {}
@@ -665,9 +697,9 @@ return {
           rotation = 0,
           visible = true,
           polygon = {
-            { x = 0, y = 0 },
-            { x = 52, y = 42.6667 },
-            { x = -14, y = 45.3333 }
+            { x = 17, y = 0.333333 },
+            { x = 55.6667, y = 30.3334 },
+            { x = 16.6667, y = 38.3333 }
           },
           properties = {}
         },
@@ -683,9 +715,9 @@ return {
           rotation = 0,
           visible = true,
           polygon = {
-            { x = 0, y = 0 },
-            { x = 83, y = 18.6667 },
-            { x = -2, y = 30.6667 }
+            { x = -1, y = -23 },
+            { x = 112.333, y = 11 },
+            { x = 36.3333, y = 16 }
           },
           properties = {}
         },
@@ -704,6 +736,170 @@ return {
             { x = 0, y = 0 },
             { x = 94, y = 3 },
             { x = 38.6667, y = 17.6667 }
+          },
+          properties = {}
+        },
+        {
+          id = 49,
+          name = "",
+          type = "",
+          shape = "polygon",
+          x = 125.667,
+          y = 192.667,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polygon = {
+            { x = 0, y = 0 },
+            { x = 60.3333, y = -28 },
+            { x = 79.6667, y = 32.3333 },
+            { x = 5.33333, y = 17.3333 }
+          },
+          properties = {}
+        },
+        {
+          id = 50,
+          name = "",
+          type = "",
+          shape = "polygon",
+          x = 233.333,
+          y = 163,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polygon = {
+            { x = 0, y = 0 },
+            { x = -47.4928, y = 1.73913 },
+            { x = -29.3333, y = 61.6667 },
+            { x = 5, y = 43 }
+          },
+          properties = {}
+        },
+        {
+          id = 51,
+          name = "",
+          type = "",
+          shape = "polygon",
+          x = 412.333,
+          y = 209,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polygon = {
+            { x = 0, y = 0 },
+            { x = -31, y = 34.6667 },
+            { x = -48.6667, y = -14.6667 }
+          },
+          properties = {}
+        },
+        {
+          id = 52,
+          name = "",
+          type = "",
+          shape = "polygon",
+          x = 420.333,
+          y = 259,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polygon = {
+            { x = 0, y = 0 },
+            { x = 15.6667, y = -47.6667 },
+            { x = 69.6667, y = -18.6667 }
+          },
+          properties = {}
+        },
+        {
+          id = 53,
+          name = "",
+          type = "",
+          shape = "polygon",
+          x = 425,
+          y = 255.333,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polygon = {
+            { x = 0, y = 0 },
+            { x = -49.6667, y = 16 },
+            { x = -4, y = 27.6667 }
+          },
+          properties = {}
+        },
+        {
+          id = 54,
+          name = "",
+          type = "",
+          shape = "polygon",
+          x = 366.333,
+          y = 197,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polygon = {
+            { x = 0, y = 0 },
+            { x = 83, y = -32 },
+            { x = 17, y = -36 }
+          },
+          properties = {}
+        },
+        {
+          id = 55,
+          name = "",
+          type = "",
+          shape = "polygon",
+          x = 434.667,
+          y = 159,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polygon = {
+            { x = 0, y = 0 },
+            { x = 62, y = 21 },
+            { x = 39.6667, y = -14.3333 }
+          },
+          properties = {}
+        },
+        {
+          id = 56,
+          name = "",
+          type = "",
+          shape = "polygon",
+          x = 485,
+          y = 172.333,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polygon = {
+            { x = 0, y = 0 },
+            { x = 13.6667, y = 62.3333 },
+            { x = 37.6667, y = 54.6667 }
+          },
+          properties = {}
+        },
+        {
+          id = 57,
+          name = "",
+          type = "",
+          shape = "polygon",
+          x = 505,
+          y = 226,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polygon = {
+            { x = 0, y = 0 },
+            { x = -26.3333, y = 13 },
+            { x = -4, y = 22.3333 }
           },
           properties = {}
         }

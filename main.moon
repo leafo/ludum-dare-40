@@ -1,6 +1,6 @@
 require "lovekit.all"
 {graphics: g} = love
-export DEBUG = false
+export DEBUG = true
 
 import CenterAnchor, VList, Label, RevealLabel, Border from require "lovekit.ui"
 import Dialog from require "dialog"
@@ -389,7 +389,7 @@ love.load = ->
   game = Game!
 
   export CONTROLLER = Controller GAME_CONFIG.keys, "auto"
-  export DISPATCHER = Dispatcher -> game\get_world "npc_test"
+  export DISPATCHER = Dispatcher -> game\get_world "town"
   DISPATCHER.default_transition = SweepTransition
 
   DISPATCHER\bind love

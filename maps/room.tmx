@@ -5,9 +5,7 @@
  </imagelayer>
  <objectgroup name="objects">
   <object id="5" name="player spawn" type="spawn" x="68.75" y="74.5"/>
-  <object id="19" name="box" type="box" x="114.011" y="86.0455"/>
-  <object id="20" name="box" type="box" x="101.5" y="82.125"/>
-  <object id="21" name="box" type="box" x="94.25" y="79.8068"/>
+  <object id="19" name="box" type="box" x="102.761" y="86.2955" rotation="-20"/>
   <object id="27" name="portal" type="portal" x="137.604" y="94.4587" width="14.5833" height="6.4583">
    <properties>
     <property name="map" value="town"/>

@@ -1,36 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="31" height="19" tilewidth="16" tileheight="16" nextobjectid="48">
+<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="31" height="19" tilewidth="16" tileheight="16" nextobjectid="62">
  <imagelayer name="background">
   <image source="../images/town.png" width="500" height="300"/>
  </imagelayer>
  <objectgroup name="objects">
-  <object id="2" name="spawn" type="spawn" x="278" y="95.333"/>
+  <object id="2" name="spawn" type="spawn" x="285.333" y="241.333"/>
   <object id="5" name="portal" type="portal" x="314.678" y="77.0644" width="14.875" height="5.75">
    <properties>
     <property name="map" value="room"/>
    </properties>
   </object>
-  <object id="6" name="dude" type="npc" x="202.167" y="207.416"/>
-  <object id="7" name="stranger" type="npc" x="291.333" y="231.667"/>
-  <object id="8" name="dude2" type="npc" x="237.333" y="236"/>
-  <object id="9" name="box" type="box" x="247.583" y="104.75">
+  <object id="6" name="dude" type="npc" x="449.67" y="172.325"/>
+  <object id="7" name="stranger" type="npc" x="307.666" y="220"/>
+  <object id="9" name="box" type="box" x="475.583" y="193.417">
    <properties>
     <property name="owner" value="dude"/>
    </properties>
   </object>
-  <object id="10" name="box" type="box" x="318.917" y="99.6667">
+  <object id="10" name="box" type="box" x="475.917" y="183">
    <properties>
     <property name="owner" value="dude"/>
    </properties>
   </object>
-  <object id="11" name="box" type="box" x="339.917" y="95">
+  <object id="11" name="box" type="box" x="405.917" y="188.333">
    <properties>
     <property name="owner" value="dude"/>
    </properties>
   </object>
-  <object id="12" name="box" type="box" x="299.667" y="105">
+  <object id="12" name="box" type="box" x="426.334" y="181.333">
    <properties>
     <property name="owner" value="dude"/>
+   </properties>
+  </object>
+  <object id="58" name="portal" type="portal" x="235.956" y="288.125" width="31.0568" height="9.20455">
+   <properties>
+    <property name="map" value="beach"/>
+   </properties>
+  </object>
+  <object id="59" name="portal" type="portal" x="92.5625" y="163.761" width="13.0568" height="5.56819">
+   <properties>
+    <property name="map" value="house"/>
+   </properties>
+  </object>
+  <object id="60" name="portal" type="portal" x="264.805" y="195.481" width="16.9318" height="5.45455">
+   <properties>
+    <property name="map" value="store"/>
    </properties>
   </object>
  </objectgroup>
@@ -84,7 +98,7 @@
    <polygon points="0,0 5,52 47.3333,51.6667 79.6667,27 74,-9.66667"/>
   </object>
   <object id="35" x="258.667" y="185.667">
-   <polygon points="0,0 30.6667,-2.33333 10,-45.3333"/>
+   <polygon points="-0.625,6.125 33.1667,6.29167 10,-45.3333"/>
   </object>
   <object id="36" x="125.667" y="162.667">
    <polygon points="0,0 -15,4.33333 -27.6667,-46 9,-30"/>
@@ -93,34 +107,61 @@
    <polygon points="0,0 -11.3333,-46.3333 -68.6667,-43.3333 -66,-4.33333 -27.3333,14.6667"/>
   </object>
   <object id="38" x="110.667" y="148.667">
-   <polygon points="0,0 -27,14 -23.3333,-33.3333"/>
+   <polygon points="1.45455,7.63636 -25.5455,18.1818 -23.3333,-33.3333"/>
   </object>
   <object id="39" x="30" y="151">
    <polygon points="0,0 -22,-5.33333 11.6667,-46.3333"/>
   </object>
   <object id="40" x="314" y="198.333">
-   <polygon points="0,0 18.3333,40.3333 92.3333,-19.3333"/>
+   <polygon points="0,0 8.66663,32.3333 69.6666,44.6667"/>
   </object>
   <object id="41" x="330" y="224.333">
-   <polygon points="0,0 -22,37.3333 53.6667,46.6667"/>
+   <polygon points="-19.6667,26.3333 -23.6667,37.6666 53.6667,46.6667"/>
   </object>
   <object id="42" x="315" y="259.667">
-   <polygon points="0,0 -29,40.6667 65,31.3333"/>
+   <polygon points="0.666667,-3.33333 -50,3.6667 -37.6667,44.3333"/>
   </object>
   <object id="43" x="217" y="298">
-   <polygon points="0,0 -17.6667,-43.6667 -152.333,0.666667"/>
+   <polygon points="17.6667,-31.6667 -27.3334,-35.3334 8.33367,9"/>
   </object>
   <object id="44" x="62.6667" y="184.667">
-   <polygon points="0,0 -5,49.3333 -57.3333,14.3333"/>
+   <polygon points="0,0 9.33333,40.6666 -57.3333,14.3333"/>
   </object>
   <object id="45" x="49" y="215">
-   <polygon points="0,0 52,42.6667 -14,45.3333"/>
+   <polygon points="17,0.333333 55.6667,30.3334 16.6667,38.3333"/>
   </object>
   <object id="46" x="83.3333" y="254">
-   <polygon points="0,0 83,18.6667 -2,30.6667"/>
+   <polygon points="-1,-23 112.333,11 36.3333,16"/>
   </object>
   <object id="47" x="208.333" y="297">
    <polygon points="0,0 94,3 38.6667,17.6667"/>
+  </object>
+  <object id="49" x="125.667" y="192.667">
+   <polygon points="0,0 60.3333,-28 79.6667,32.3333 5.33333,17.3333"/>
+  </object>
+  <object id="50" x="233.333" y="163">
+   <polygon points="0,0 -47.4928,1.73913 -29.3333,61.6667 5,43"/>
+  </object>
+  <object id="51" x="412.333" y="209">
+   <polygon points="0,0 -31,34.6667 -48.6667,-14.6667"/>
+  </object>
+  <object id="52" x="420.333" y="259">
+   <polygon points="0,0 15.6667,-47.6667 69.6667,-18.6667"/>
+  </object>
+  <object id="53" x="425" y="255.333">
+   <polygon points="0,0 -49.6667,16 -4,27.6667"/>
+  </object>
+  <object id="54" x="366.333" y="197">
+   <polygon points="0,0 83,-32 17,-36"/>
+  </object>
+  <object id="55" x="434.667" y="159">
+   <polygon points="0,0 62,21 39.6667,-14.3333"/>
+  </object>
+  <object id="56" x="485" y="172.333">
+   <polygon points="0,0 13.6667,62.3333 37.6667,54.6667"/>
+  </object>
+  <object id="57" x="505" y="226">
+   <polygon points="0,0 -26.3333,13 -4,22.3333"/>
   </object>
  </objectgroup>
 </map>

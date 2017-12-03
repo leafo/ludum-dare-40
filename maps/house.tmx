@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="12" height="7" tilewidth="16" tileheight="16" nextobjectid="71">
+ <imagelayer name="background">
+  <image source="../images/house.png" width="183" height="109"/>
+ </imagelayer>
+ <objectgroup name="objects">
+  <object id="5" name="player spawn" type="spawn" x="146" y="74.25"/>
+  <object id="70" name="portal" type="portal" x="122.75" y="102.25" width="27" height="5.25">
+   <properties>
+    <property name="map" value="town"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup color="#ff6464" name="collide">
+  <object id="54" x="96.25" y="75">
+   <polygon points="-5,1.25 -79.5,2.75 -39.5,-28.25"/>
+  </object>
+  <object id="55" x="133.25" y="44">
+   <polygon points="1.5,1 9.5,11.5 48,9.5"/>
+  </object>
+  <object id="56" x="156.75" y="52.25">
+   <polygon points="0,0 10.75,13 23,-2.25"/>
+  </object>
+  <object id="57" x="167" y="61">
+   <polygon points="0,0 -6.5,17.75 -5.75,40.5 16,31.25"/>
+  </object>
+  <object id="58" x="182.5" y="99">
+   <polygon points="0,0 -32.5,1 -28.75,10.75"/>
+  </object>
+  <object id="59" x="117.25" y="100.5">
+   <polygon points="0,0 4.75,8.5 -119.75,9 -23,1"/>
+  </object>
+  <object id="60" x="94.5" y="98">
+   <polygon points="0,0 -96.75,1.25 0,8"/>
+  </object>
+  <object id="61" x="-2.5" y="72.25">
+   <polygon points="0,0 15.25,8.75 20.75,31.25 -4.5,24.75"/>
+  </object>
+  <object id="62" x="2" y="78.25">
+   <polygon points="0,0 17.25,-8.5 -0.25,-20"/>
+  </object>
+  <object id="63" x="13" y="69.25">
+   <polygon points="0,0 4.5,8.25 16.5,-5"/>
+  </object>
+  <object id="66" x="98" y="27.25">
+   <polygon points="0,0 44,0 43,-31"/>
+  </object>
+  <object id="65" x="97.75" y="-3.75">
+   <polygon points="0,0 3,74.75 -27,75.5"/>
+  </object>
+  <object id="64" x="86" y="74">
+   <polygon points="0,0 4.5,4 14.25,-2.75 3,-12"/>
+  </object>
+  <object id="67" x="118.25" y="107.75">
+   <polygon points="0,0 37,-0.25 18.5,5.75"/>
+  </object>
+  <object id="68" x="136" y="22.5">
+   <polygon points="0,0 11.25,16 41.75,-2.5"/>
+  </object>
+  <object id="69" x="136.25" y="46.75">
+   <polygon points="0,0 0.5,-10.25 31,-12"/>
+  </object>
+ </objectgroup>
+</map>
