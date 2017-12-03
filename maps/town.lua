@@ -8,7 +8,7 @@ return {
   height = 19,
   tilewidth = 16,
   tileheight = 16,
-  nextobjectid = 62,
+  nextobjectid = 69,
   properties = {},
   tilesets = {},
   layers = {
@@ -190,6 +190,34 @@ return {
           properties = {
             ["map"] = "store"
           }
+        },
+        {
+          id = 67,
+          name = "portal",
+          type = "portal",
+          shape = "rectangle",
+          x = 158,
+          y = 208.75,
+          width = 15.5,
+          height = 7.25,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["dialog"] = "pen"
+          }
+        },
+        {
+          id = 68,
+          name = "pen",
+          type = "point",
+          shape = "rectangle",
+          x = 193.5,
+          y = 189.5,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
         }
       }
     },
@@ -740,25 +768,6 @@ return {
           properties = {}
         },
         {
-          id = 49,
-          name = "",
-          type = "",
-          shape = "polygon",
-          x = 125.667,
-          y = 192.667,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = true,
-          polygon = {
-            { x = 0, y = 0 },
-            { x = 60.3333, y = -28 },
-            { x = 79.6667, y = 32.3333 },
-            { x = 5.33333, y = 17.3333 }
-          },
-          properties = {}
-        },
-        {
           id = 50,
           name = "",
           type = "",
@@ -900,6 +909,82 @@ return {
             { x = 0, y = 0 },
             { x = -26.3333, y = 13 },
             { x = -4, y = 22.3333 }
+          },
+          properties = {}
+        },
+        {
+          id = 62,
+          name = "",
+          type = "",
+          shape = "polygon",
+          x = 137.5,
+          y = 162,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polygon = {
+            { x = 0, y = 0 },
+            { x = -13.5, y = -23.25 },
+            { x = 3.25, y = -20.5 },
+            { x = 8.25, y = -11.5 }
+          },
+          properties = {}
+        },
+        {
+          id = 63,
+          name = "",
+          type = "",
+          shape = "polygon",
+          x = 157.5,
+          y = 213.5,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polygon = {
+            { x = 0, y = 0 },
+            { x = 0, y = -18 },
+            { x = -30.25, y = -22 },
+            { x = -28, y = -5.5 }
+          },
+          properties = {}
+        },
+        {
+          id = 64,
+          name = "",
+          type = "",
+          shape = "polygon",
+          x = 178,
+          y = 199.75,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polygon = {
+            { x = 0, y = 0 },
+            { x = -4.25, y = 18 },
+            { x = 28.75, y = 26.5 },
+            { x = 26.75, y = 5.25 }
+          },
+          properties = {}
+        },
+        {
+          id = 65,
+          name = "",
+          type = "",
+          shape = "polygon",
+          x = 151,
+          y = 206.75,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polygon = {
+            { x = 0, y = 0 },
+            { x = 35.5, y = 5.5 },
+            { x = 37.25, y = -41.75 },
+            { x = -24.5, y = -15.5 }
           },
           properties = {}
         }

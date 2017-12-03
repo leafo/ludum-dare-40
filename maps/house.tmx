@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="12" height="7" tilewidth="16" tileheight="16" nextobjectid="71">
  <imagelayer name="background">
-  <image source="../images/house.png" width="183" height="109"/>
+  <image source="../images/house.png" width="201" height="109"/>
  </imagelayer>
  <objectgroup name="objects">
   <object id="5" name="player spawn" type="spawn" x="146" y="74.25"/>

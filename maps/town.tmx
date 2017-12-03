@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="31" height="19" tilewidth="16" tileheight="16" nextobjectid="62">
+<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="31" height="19" tilewidth="16" tileheight="16" nextobjectid="69">
  <imagelayer name="background">
   <image source="../images/town.png" width="500" height="300"/>
  </imagelayer>
@@ -47,6 +47,12 @@
     <property name="map" value="store"/>
    </properties>
   </object>
+  <object id="67" name="portal" type="portal" x="158" y="208.75" width="15.5" height="7.25">
+   <properties>
+    <property name="dialog" value="pen"/>
+   </properties>
+  </object>
+  <object id="68" name="pen" type="point" x="193.5" y="189.5"/>
  </objectgroup>
  <objectgroup color="#ff6464" name="collide">
   <object id="13" x="279.75" y="81">
@@ -136,9 +142,6 @@
   <object id="47" x="208.333" y="297">
    <polygon points="0,0 94,3 38.6667,17.6667"/>
   </object>
-  <object id="49" x="125.667" y="192.667">
-   <polygon points="0,0 60.3333,-28 79.6667,32.3333 5.33333,17.3333"/>
-  </object>
   <object id="50" x="233.333" y="163">
    <polygon points="0,0 -47.4928,1.73913 -29.3333,61.6667 5,43"/>
   </object>
@@ -162,6 +165,18 @@
   </object>
   <object id="57" x="505" y="226">
    <polygon points="0,0 -26.3333,13 -4,22.3333"/>
+  </object>
+  <object id="62" x="137.5" y="162">
+   <polygon points="0,0 -13.5,-23.25 3.25,-20.5 8.25,-11.5"/>
+  </object>
+  <object id="63" x="157.5" y="213.5">
+   <polygon points="0,0 0,-18 -30.25,-22 -28,-5.5"/>
+  </object>
+  <object id="64" x="178" y="199.75">
+   <polygon points="0,0 -4.25,18 28.75,26.5 26.75,5.25"/>
+  </object>
+  <object id="65" x="151" y="206.75">
+   <polygon points="0,0 35.5,5.5 37.25,-41.75 -24.5,-15.5"/>
   </object>
  </objectgroup>
 </map>
