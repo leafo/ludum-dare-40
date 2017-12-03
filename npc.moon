@@ -40,24 +40,31 @@ class Npc extends Ball
     require("dialogs")[@name]
 
   draw: =>
-    super!
-    x, y = @body\getPosition!
+    if balls = @get_body_balls!
+      @draw_balls balls, scale: 1.3
+    else
+      @draw_node!
 
-    g.setPointSize 1
-    g.points @origin_x, @origin_y
+    if @label
+      @label\draw!
 
+  -- balls that make up the body
+  get_body_balls: =>
     eye_direction = Vec2d.from_radians love.timer.getTime! * 3
     eye_pos = eye_direction * 3
 
-    @draw_balls {
+    {
       {0,0,0,  4, WHITE}
       {0,-4,0, 4, WHITE}
 
       {eye_pos[1], -5, eye_pos[2], 2, BLACK} -- eye
-    }, scale: 1.3
+    }
 
-    if @label
-      @label\draw!
+  -- if it's not a balls, just add the node
+  draw_node: =>
+    Ball.draw @
+    g.setPointSize 1
+    g.points @origin_x, @origin_y
 
   update: (dt) =>
     x, y = @body\getPosition!
