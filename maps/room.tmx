@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="26" height="26" tilewidth="16" tileheight="16" nextobjectid="49">
+<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="26" height="26" tilewidth="16" tileheight="16" nextobjectid="54">
  <imagelayer name="background">
   <image source="../images/room.png" width="183" height="109"/>
  </imagelayer>
  <objectgroup name="objects">
   <object id="5" name="player spawn" type="spawn" x="68.75" y="74.5"/>
-  <object id="19" name="box" type="box" x="142.136" y="69.2955"/>
-  <object id="20" name="box" type="box" x="118.75" y="69"/>
-  <object id="21" name="box" type="box" x="100.5" y="73.1818"/>
+  <object id="19" name="box" type="box" x="114.011" y="86.0455"/>
+  <object id="20" name="box" type="box" x="101.5" y="82.125"/>
+  <object id="21" name="box" type="box" x="94.25" y="79.8068"/>
   <object id="27" name="portal" type="portal" x="137.604" y="94.4587" width="14.5833" height="6.4583">
    <properties>
     <property name="map" value="town"/>
    </properties>
   </object>
+  <object id="52" name="diary" type="npc" x="124.375" y="64.25"/>
  </objectgroup>
- <objectgroup color="#ff6464" name="collide" visible="0">
+ <objectgroup color="#ff6464" name="collide">
   <object id="36" x="50.0833" y="68.4167">
    <polygon points="0,0 -1.5,-31.5 -36.5,-25.75 -40.5,19.25 -13.25,19"/>
   </object>
@@ -25,13 +26,22 @@
    <polygon points="0,0 27.75,52.5 32,-17.5"/>
   </object>
   <object id="45" x="115.083" y="59.1667">
-   <polygon points="0,0 -68.25,3 -72,-60.5 -0.25,-64"/>
+   <polygon points="-7.45455,0 -68.25,3 -72,-60.5 -0.25,-64"/>
   </object>
   <object id="46" x="155.083" y="-2.58333">
-   <polygon points="0,0 0.5,64.75 -43.25,61.25 -43.75,-7"/>
+   <polygon points="0,0 0.5,64.75 -12.8864,62.1591 -43.75,-7"/>
   </object>
   <object id="48" x="1" y="101">
    <polygon points="0,0 187,-0.666667 86.3333,20"/>
+  </object>
+  <object id="49" x="106.063" y="59.625">
+   <polygon points="0,0 37.4375,0.875 17.8125,-19.625"/>
+  </object>
+  <object id="50" x="109.364" y="65.6364">
+   <polygon points="0,0 -3.90909,-12 4.36364,-12.0909"/>
+  </object>
+  <object id="51" x="140.455" y="65.5455">
+   <polygon points="0,0 -4.63636,-9.90909 4.27273,-10.1818"/>
   </object>
  </objectgroup>
 </map>

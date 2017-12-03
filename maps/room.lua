@@ -8,7 +8,7 @@ return {
   height = 26,
   tilewidth = 16,
   tileheight = 16,
-  nextobjectid = 49,
+  nextobjectid = 54,
   properties = {},
   tilesets = {},
   layers = {
@@ -50,8 +50,8 @@ return {
           name = "box",
           type = "box",
           shape = "rectangle",
-          x = 142.136,
-          y = 69.2955,
+          x = 114.011,
+          y = 86.0455,
           width = 0,
           height = 0,
           rotation = 0,
@@ -63,8 +63,8 @@ return {
           name = "box",
           type = "box",
           shape = "rectangle",
-          x = 118.75,
-          y = 69,
+          x = 101.5,
+          y = 82.125,
           width = 0,
           height = 0,
           rotation = 0,
@@ -76,8 +76,8 @@ return {
           name = "box",
           type = "box",
           shape = "rectangle",
-          x = 100.5,
-          y = 73.1818,
+          x = 94.25,
+          y = 79.8068,
           width = 0,
           height = 0,
           rotation = 0,
@@ -98,13 +98,26 @@ return {
           properties = {
             ["map"] = "town"
           }
+        },
+        {
+          id = 52,
+          name = "diary",
+          type = "npc",
+          shape = "rectangle",
+          x = 124.375,
+          y = 64.25,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
         }
       }
     },
     {
       type = "objectgroup",
       name = "collide",
-      visible = false,
+      visible = true,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -179,7 +192,7 @@ return {
           rotation = 0,
           visible = true,
           polygon = {
-            { x = 0, y = 0 },
+            { x = -7.45455, y = 0 },
             { x = -68.25, y = 3 },
             { x = -72, y = -60.5 },
             { x = -0.25, y = -64 }
@@ -200,7 +213,7 @@ return {
           polygon = {
             { x = 0, y = 0 },
             { x = 0.5, y = 64.75 },
-            { x = -43.25, y = 61.25 },
+            { x = -12.8864, y = 62.1591 },
             { x = -43.75, y = -7 }
           },
           properties = {}
@@ -220,6 +233,60 @@ return {
             { x = 0, y = 0 },
             { x = 187, y = -0.666667 },
             { x = 86.3333, y = 20 }
+          },
+          properties = {}
+        },
+        {
+          id = 49,
+          name = "",
+          type = "",
+          shape = "polygon",
+          x = 106.063,
+          y = 59.625,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polygon = {
+            { x = 0, y = 0 },
+            { x = 37.4375, y = 0.875 },
+            { x = 17.8125, y = -19.625 }
+          },
+          properties = {}
+        },
+        {
+          id = 50,
+          name = "",
+          type = "",
+          shape = "polygon",
+          x = 109.364,
+          y = 65.6364,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polygon = {
+            { x = 0, y = 0 },
+            { x = -3.90909, y = -12 },
+            { x = 4.36364, y = -12.0909 }
+          },
+          properties = {}
+        },
+        {
+          id = 51,
+          name = "",
+          type = "",
+          shape = "polygon",
+          x = 140.455,
+          y = 65.5455,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polygon = {
+            { x = 0, y = 0 },
+            { x = -4.63636, y = -9.90909 },
+            { x = 4.27273, y = -10.1818 }
           },
           properties = {}
         }
