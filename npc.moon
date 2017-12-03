@@ -19,13 +19,13 @@ class Npc extends Ball
     @time_offset = love.math.random! * math.pi * 2
 
     @facing = Vec2d 0, 1
-    @default_facing = @facing
+    @default_facing_rad = @facing\radians!
     @smooth_facing = @facing
 
     @seq = Sequence ->
       while true
         wait 1.0 + love.math.random!
-        @default_facing = love.math.random! * math.pi
+        @default_facing_rad = love.math.random! * math.pi
 
     super @opts
 
@@ -92,8 +92,7 @@ class Npc extends Ball
         facing = math.abs to_player\normalized!\radians!
         facing = math.min math.pi - DEG30, math.max DEG30, facing
       else
-        -- TODO: sequence random heading
-        facing = math.pi / 2 -- down
+        facing = @default_facing_rad
 
       -- wobble with me
       facing += math.sin(@time_offset + @time * 3) * DEG30/3
