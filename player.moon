@@ -139,7 +139,7 @@ class Player extends Ball
     { pos[1], 0, pos[2], 3, {255,255,255} }
 
   is_active: =>
-    not @world.current_dialog
+    not @world.current_dialog and not @world.lock_movement
 
   update: (dt) =>
     move = if @is_active!

@@ -18,7 +18,7 @@ load_font = (img, chars)->
   g.newImageFont font_image.tex, chars
 
 class SweepTransition extends Sequence
-  time: 1.0
+  time: 0.8
 
   new: (@before, @after) =>
     @p = 0
@@ -28,6 +28,7 @@ class SweepTransition extends Sequence
 
   update: (dt) =>
     @after\update dt
+    @after.lock_movement = @p < 0.5
     super dt
 
   draw: =>
@@ -213,17 +214,21 @@ class World
     assert map_name, "no map name provided to travel to"
     print "Going to", map_name
     next_world = @game\get_world map_name
-    next_world\place_player @name
+    next_world\place_player @name, @player.smooth_facing
 
     DISPATCHER\replace next_world
 
   -- place player on portal
-  place_player: (source_portal) =>
+  place_player: (source_portal, direction) =>
     for portal in *@portals
       if portal.destination == source_portal
         @player.body\setPosition portal\center!
         @player.body\setLinearVelocity 0, 0
-        print "centering on player"
+
+        if direction
+          @player.facing = direction
+          @player.smooth_facing = direction
+
         px, py = @player\center!
         @viewport\center_on_pt px, py, @map
 
