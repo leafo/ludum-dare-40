@@ -286,7 +286,7 @@ class World
     for portal in *@portals
       portal\draw!
 
-    if @player
+    if @player and @player\is_active!
       @player.cursors\draw!
 
     if @current_dialog

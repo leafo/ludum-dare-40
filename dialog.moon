@@ -118,17 +118,17 @@ class Dialog extends VList
                 Label label\lower!
               }
 
-            table.insert @items, HList [make_choice c, idx for idx, c in ipairs choices]
+            table.insert @items, VList [make_choice c, idx for idx, c in ipairs choices]
             wait 0.2 -- don't let them skip by accident without reading
 
             while true
-              switch wait_for_controller "left", "right", "one", "two"
-                when "left"
+              switch wait_for_controller "up", "down", "one", "two"
+                when "up"
                   selected -= 1
                   if selected <= 0
                     selected += #choices
 
-                when "right"
+                when "down"
                   selected += 1
                   if selected > #choices
                     selected -= #choices

@@ -1,4 +1,16 @@
 {
+  diary: {
+    default: =>
+      say "It's a good day to relax"
+      ask "What would you like to see", {
+        {"Show me my friends", ->
+        }
+        {"Show me my places", ->
+        }
+      }
+
+    intro: =>
+  }
   dude: {
     default: =>
       ask "What do you want out of life?", {
