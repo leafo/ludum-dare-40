@@ -223,6 +223,7 @@ class World
 
     @objects = {}
     @portals = {}
+    @npcs = {}
 
     @map = Map {
       world: @
@@ -271,7 +272,6 @@ class World
     }
 
   add_npc: (x,y, name) =>
-    @npcs or= {}
     npc = Npc {
       :name
       :x, :y
