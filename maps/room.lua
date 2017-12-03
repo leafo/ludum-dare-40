@@ -46,58 +46,17 @@ return {
           properties = {}
         },
         {
-          id = 11,
-          name = "dude",
-          type = "npc",
-          shape = "rectangle",
-          x = 169.5,
-          y = 160,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 12,
-          name = "dude2",
-          type = "npc",
-          shape = "rectangle",
-          x = 128,
-          y = 313,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 13,
-          name = "stranger",
-          type = "npc",
-          shape = "rectangle",
-          x = 132,
-          y = 170.25,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
           id = 19,
           name = "box",
           type = "box",
           shape = "rectangle",
-          x = 140.5,
-          y = 72.75,
+          x = 142.136,
+          y = 69.2955,
           width = 0,
           height = 0,
           rotation = 0,
           visible = true,
-          properties = {
-            ["owner"] = "dude"
-          }
+          properties = {}
         },
         {
           id = 20,
@@ -110,39 +69,20 @@ return {
           height = 0,
           rotation = 0,
           visible = true,
-          properties = {
-            ["owner"] = "dude"
-          }
+          properties = {}
         },
         {
           id = 21,
           name = "box",
           type = "box",
           shape = "rectangle",
-          x = 106.5,
-          y = 71,
+          x = 100.5,
+          y = 73.1818,
           width = 0,
           height = 0,
           rotation = 0,
           visible = true,
-          properties = {
-            ["owner"] = "dude"
-          }
-        },
-        {
-          id = 22,
-          name = "box",
-          type = "box",
-          shape = "rectangle",
-          x = 110,
-          y = 84.25,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["owner"] = "dude"
-          }
+          properties = {}
         },
         {
           id = 27,
@@ -164,7 +104,7 @@ return {
     {
       type = "objectgroup",
       name = "collide",
-      visible = true,
+      visible = false,
       opacity = 1,
       offsetx = 0,
       offsety = 0,

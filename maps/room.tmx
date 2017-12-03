@@ -5,36 +5,16 @@
  </imagelayer>
  <objectgroup name="objects">
   <object id="5" name="player spawn" type="spawn" x="68.75" y="74.5"/>
-  <object id="11" name="dude" type="npc" x="169.5" y="160"/>
-  <object id="12" name="dude2" type="npc" x="128" y="313"/>
-  <object id="13" name="stranger" type="npc" x="132" y="170.25"/>
-  <object id="19" name="box" type="box" x="140.5" y="72.75">
-   <properties>
-    <property name="owner" value="dude"/>
-   </properties>
-  </object>
-  <object id="20" name="box" type="box" x="118.75" y="69">
-   <properties>
-    <property name="owner" value="dude"/>
-   </properties>
-  </object>
-  <object id="21" name="box" type="box" x="106.5" y="71">
-   <properties>
-    <property name="owner" value="dude"/>
-   </properties>
-  </object>
-  <object id="22" name="box" type="box" x="110" y="84.25">
-   <properties>
-    <property name="owner" value="dude"/>
-   </properties>
-  </object>
+  <object id="19" name="box" type="box" x="142.136" y="69.2955"/>
+  <object id="20" name="box" type="box" x="118.75" y="69"/>
+  <object id="21" name="box" type="box" x="100.5" y="73.1818"/>
   <object id="27" name="portal" type="portal" x="137.604" y="94.4587" width="14.5833" height="6.4583">
    <properties>
     <property name="map" value="town"/>
    </properties>
   </object>
  </objectgroup>
- <objectgroup color="#ff6464" name="collide">
+ <objectgroup color="#ff6464" name="collide" visible="0">
   <object id="36" x="50.0833" y="68.4167">
    <polygon points="0,0 -1.5,-31.5 -36.5,-25.75 -40.5,19.25 -13.25,19"/>
   </object>

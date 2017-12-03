@@ -229,6 +229,11 @@ class World
       module: assert opts.map, "missing map"
     }
 
+  on_show: =>
+
+  on_hide: =>
+    @player\drop_everything!
+
   travel_to: (map_name) =>
     assert map_name, "no map name provided to travel to"
     print "Going to", map_name
@@ -238,9 +243,7 @@ class World
 
   -- place player on portal
   place_player: (source_portal) =>
-    print "source_portal", source_portal
     for portal in *@portals
-
       if portal.destination == source_portal
         @player.body\setPosition portal\center!
         @player.body\setLinearVelocity 0, 0
