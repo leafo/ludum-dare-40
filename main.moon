@@ -17,6 +17,29 @@ load_font = (img, chars)->
   font_image = imgfy img
   g.newImageFont font_image.tex, chars
 
+class SweepTransition extends Sequence
+  time: 1.0
+
+  new: (@before, @after) =>
+    @p = 0
+    super ->
+      return unless @before and @after
+      tween @, @time, p: 1.0
+
+  update: (dt) =>
+    @after\update dt
+    super dt
+
+  draw: =>
+    height = g.getHeight!
+
+    @before.viewport.canvas_offset_y = -@p * height
+    @after.viewport.canvas_offset_y = -@p * height + height
+
+    @before\draw!
+    @after\draw!
+
+
 class DialogScreen
   default_dialog:  {
     default: ->
@@ -159,6 +182,7 @@ class World
   new: (opts={}) =>
     @viewport = EffectViewport {
       pixel_scale: true
+      crop: true
       scale: GAME_CONFIG.scale
     }
 
@@ -350,5 +374,6 @@ love.load = ->
 
   export CONTROLLER = Controller GAME_CONFIG.keys, "auto"
   export DISPATCHER = Dispatcher -> game\get_world "room"
+  DISPATCHER.default_transition = SweepTransition
 
   DISPATCHER\bind love
