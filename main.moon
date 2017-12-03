@@ -4,7 +4,6 @@ export DEBUG = false
 
 import CenterAnchor, VList, Label, RevealLabel, Border from require "lovekit.ui"
 import Dialog from require "dialog"
-import Cursor from require "cursor"
 
 import Ball from require "ball"
 import Player from require "player"

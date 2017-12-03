@@ -12,29 +12,20 @@ class Player extends Ball
     @holding = {}
     @cursors = DrawList!
     @facing = Vec2d 0, 1
-    @smooth_facing = @facing
 
   draw: =>
     x,y = @body\getPosition!
 
     super "fill"
 
-    eye_size = 2
+    dir = @facing*2 + Vec2d(x,y)
 
-    g.push!
-    g.translate x, y
+    head_size = 3
 
-    facing = @smooth_facing
-
-    for i=-1,2,2
-      x, y = unpack (facing*4)\rotate math.pi / 6 * i
-
-      g.circle "fill", x, y, eye_size + 1
-      COLOR\push 0,0,0
-      g.circle "fill", x, y , eye_size
-      COLOR\pop!
-
-    g.pop!
+    COLOR\push 0,0,0
+    g.circle "fill", dir[1], dir[2], head_size + 1
+    COLOR\pop!
+    g.circle "fill", dir[1], dir[2], head_size
 
   is_active: =>
     not @world.current_dialog
@@ -46,8 +37,6 @@ class Player extends Ball
         @facing = move\normalized!
 
       @body\applyForce unpack move*6
-
-    @smooth_facing = @smooth_facing\merge_angle @facing, dt*10
 
     -- not used
     -- @ball.body\applyLinearImpulse unpack move*dt*10
