@@ -233,13 +233,15 @@ class World
   on_show: =>
 
   on_hide: =>
-    @player\drop_everything!
+    if @player
+      @player\drop_everything!
 
   travel_to: (map_name) =>
     assert map_name, "no map name provided to travel to"
     print "Going to", map_name
     next_world = @game\get_world map_name
     next_world\place_player @name
+
     DISPATCHER\replace next_world
 
   -- place player on portal
@@ -248,6 +250,9 @@ class World
       if portal.destination == source_portal
         @player.body\setPosition portal\center!
         @player.body\setLinearVelocity 0, 0
+        print "centering on player"
+        px, py = @player\center!
+        @viewport\center_on_pt px, py, @map
 
   add_portal: (p) =>
     p.world = @
