@@ -172,13 +172,19 @@ class Portal extends Box
     @y = opts.y
 
     @destination = opts.destination
+    @dialog = opts.dialog
+
     @world = assert opts.world, "missing world"
 
     @seq = Sequence ->
       while true
         wait_until -> not @touches_pt @world.player\center!
         wait_until -> @touches_pt @world.player\center!
-        @world\travel_to @destination
+        if @dialog
+          print "show dialog: #{@dialog}"
+        elseif @destination
+          @world\travel_to @destination
+
 
   draw: =>
     return unless DEBUG
