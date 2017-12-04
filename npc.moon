@@ -23,7 +23,8 @@ class Npc extends Ball
     @time_offset = love.math.random! * math.pi * 2
 
     @spec = require("npcs")[@name] or {}
-    @state = @spec.state or {}
+    @spec.state or= {}
+    @state = @spec.state
 
     @facing = Vec2d 0, 1
     @default_facing_rad = @facing\radians!

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="11" height="6" tilewidth="16" tileheight="16" nextobjectid="65">
+ <imagelayer name="background">
+  <image source="../images/intro.png" width="183" height="109"/>
+ </imagelayer>
+ <objectgroup name="objects">
+  <object id="5" name="player spawn" type="spawn" x="85.75" y="72.5"/>
+  <object id="54" name="portal" type="portal" x="26.25" y="59.25" width="13.25" height="9.25">
+   <properties>
+    <property name="map" value="room"/>
+   </properties>
+  </object>
+  <object id="55" name="portal" type="portal" x="128" y="57" width="15.75" height="12">
+   <properties>
+    <property name="map" value="exit"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup color="#ff6464" name="collide">
+  <object id="57" x="-2" y="2.5">
+   <polygon points="0,0 189,-0.75 83.75,-19"/>
+  </object>
+  <object id="58" x="2.75" y="-3.25">
+   <polygon points="0,0 2,128.75 -15.5,54.25"/>
+  </object>
+  <object id="59" x="180" y="-5.75">
+   <polygon points="0,0 -3.5,123.5 27.75,57.5"/>
+  </object>
+  <object id="60" x="-9.25" y="104.25">
+   <polygon points="0,0 208.75,0 79.25,20.5"/>
+  </object>
+  <object id="61" x="19" y="13.25">
+   <polygon points="0,0 2.25,29.25 137,30.75 137.75,-4.75 58.5,-6.5"/>
+  </object>
+  <object id="62" x="58.25" y="39.25">
+   <polygon points="0,0 2,15 42.25,15.75 48.75,-0.25"/>
+  </object>
+  <object id="63" x="17.25" y="87" width="146.25" height="9.5">
+   <text fontfamily="Sans Serif" pixelsize="7" wrap="1" color="#ffffff">gamepad or arrows move, x confirm </text>
+  </object>
+ </objectgroup>
+</map>

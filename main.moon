@@ -1,6 +1,6 @@
 require "lovekit.all"
 {graphics: g} = love
-export DEBUG = true
+export DEBUG = false
 
 import CenterAnchor, VList, Label, RevealLabel, Border from require "lovekit.ui"
 import Dialog from require "dialog"
@@ -183,8 +183,10 @@ class Portal extends Box
         if @dialog
           print "show dialog: #{@dialog}"
         elseif @destination
-          @world\travel_to @destination
-
+          if @destination == "exit"
+            love.event.push "quit"
+          else
+            @world\travel_to @destination
 
   draw: =>
     return unless DEBUG
@@ -222,6 +224,37 @@ class World
     assert @player, "woops, no player spawned"
 
   on_show: =>
+    switch @name
+      when "town"
+        AUDIO\play_music "town"
+      when "room"
+        AUDIO\play_music "room"
+      when "intro"
+        label1 = RevealLabel "use gamepad or arrows move", {
+          fixed_size: true
+          max_width: 160
+        }
+
+        label2 = RevealLabel "x or button 1 to confirm", {
+          fixed_size: true
+          max_width: 160
+        }
+
+
+        @entities\add VList {
+          padding: 0
+          Border label1, {
+            padding: 2
+            background: DIALOG_BG
+            border: false
+          }
+          Border label2, {
+            padding: 2
+            background: DIALOG_BG
+            border: false
+          }
+        }
+
 
   on_hide: =>
     if @player
@@ -394,8 +427,10 @@ love.load = ->
 
   game = Game!
 
+  export AUDIO = Audio "sound"
+
   export CONTROLLER = Controller GAME_CONFIG.keys, "auto"
-  export DISPATCHER = Dispatcher -> game\get_world "town"
+  export DISPATCHER = Dispatcher -> game\get_world "beach"
   DISPATCHER.default_transition = SweepTransition
 
   DISPATCHER\bind love

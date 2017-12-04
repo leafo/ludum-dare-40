@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="12" height="7" tilewidth="16" tileheight="16" nextobjectid="71">
+<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="12" height="7" tilewidth="16" tileheight="16" nextobjectid="72">
  <imagelayer name="background">
   <image source="../images/house.png" width="201" height="109"/>
  </imagelayer>
@@ -10,6 +10,7 @@
     <property name="map" value="town"/>
    </properties>
   </object>
+  <object id="71" name="talldude" type="npc" x="39.5" y="83"/>
  </objectgroup>
  <objectgroup color="#ff6464" name="collide">
   <object id="54" x="96.25" y="75">
