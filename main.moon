@@ -430,7 +430,7 @@ love.load = ->
   export AUDIO = Audio "sound"
 
   export CONTROLLER = Controller GAME_CONFIG.keys, "auto"
-  export DISPATCHER = Dispatcher -> game\get_world "beach"
+  export DISPATCHER = Dispatcher -> game\get_world "intro"
   DISPATCHER.default_transition = SweepTransition
 
   DISPATCHER\bind love
