@@ -94,7 +94,7 @@
           state.store_counter or= 1
           switch (state.store_counter - 1) % 2
             when 0
-              say "My ware are top notch"
+              say "My wares are top notch"
             when 1
               say "I like to hang out at the beach"
               say "See you there sometime"
