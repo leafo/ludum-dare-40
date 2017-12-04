@@ -225,10 +225,12 @@ class World
 
   on_show: =>
     switch @name
-      when "town"
-        AUDIO\play_music "town"
-      when "room"
-        AUDIO\play_music "room"
+      when "town", "beach"
+        unless AUDIO.current_music == "town"
+          AUDIO\play_music "town"
+      when "room", "house", "store"
+        unless AUDIO.current_music == "room"
+          AUDIO\play_music "room"
       when "intro"
         label1 = RevealLabel "use gamepad or arrows move", {
           fixed_size: true
@@ -428,6 +430,13 @@ love.load = ->
   game = Game!
 
   export AUDIO = Audio "sound"
+
+  AUDIO\preload {
+    "step"
+  }
+
+  s = AUDIO\get_source "step"
+  s\setVolume 0.1
 
   export CONTROLLER = Controller GAME_CONFIG.keys, "auto"
   export DISPATCHER = Dispatcher -> game\get_world "intro"

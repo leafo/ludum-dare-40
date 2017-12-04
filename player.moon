@@ -19,6 +19,7 @@ class Player extends Ball
     @facing = Vec2d 0, 1
     @smooth_facing = @facing
 
+
     @entities\add Sequence ->
       while true
         wait_until -> CONTROLLER\movement_vector!\is_zero!
@@ -31,6 +32,14 @@ class Player extends Ball
 
         @flip_foot = not @flip_foot
         @last_move_time = love.timer.getTime!
+
+    @entities\add Sequence ->
+      while true
+        wait_until ->
+          @is_active and not CONTROLLER\movement_vector!\is_zero!
+
+        AUDIO\play "step"
+        wait 0.25
 
   draw: =>
     x,y = @body\getPosition!
